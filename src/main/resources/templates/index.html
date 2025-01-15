@@ -5,6 +5,12 @@
 
   <body>
 
+    <!-- 
+        th:insert="~{header :: navbar}": dice a Thymeleaf di prendere il frammento navbar dal file header.html e inserirlo al 
+        posto del tag <nav> nel file index.
+        header: È il nome del file in cui si trova il frammento.
+        navbar: È il nome del frammento definito nel file header con th:fragment. La sintassi è sempre uguale 
+    -->
     <nav th:insert="~{header :: navbar}"></nav>
 
     <div class="px-4 pt-5 my-5 text-center border-bottom">
