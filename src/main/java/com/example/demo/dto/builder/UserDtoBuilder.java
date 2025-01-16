@@ -17,7 +17,7 @@ public class UserDtoBuilder {
 		String userImageName = userImage.getOriginalFilename();
 
 		User u = new User();
-		// u.setId(uDto.getId());
+		u.setId(uDto.getId());
 		u.setNome(uDto.getNome());
 		u.setEmail(uDto.getEmail());
 		u.setPassword(uDto.getPassword());
@@ -31,7 +31,7 @@ public class UserDtoBuilder {
 		
 
 		UserDto uDto = new UserDto();
-		// uDto.setId(u.getId());
+		uDto.setId(u.getId());
 		uDto.setNome(u.getNome());
 		uDto.setEmail(u.getEmail());
 		uDto.setPassword(u.getPassword());

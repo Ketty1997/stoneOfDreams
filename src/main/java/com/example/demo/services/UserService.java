@@ -67,7 +67,7 @@ public class UserService {
     }
 
 
-    public void saveUser(UserDto userDto, String imageFileName, User user) {
+    public void saveUser(UserDto userDto, String imageFileName) {
 
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
         User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto);

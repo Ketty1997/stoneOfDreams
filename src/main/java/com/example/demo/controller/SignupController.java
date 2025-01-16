@@ -68,13 +68,9 @@ public class SignupController {
         try {
             String storageFileName = userService.saveImage(userDto.getImg());
             
-            //prendo l'utente tramite la session
-            // User user = userService.getUserFromSession(session);
-            User user = userService.getUserFromSession(session);
-            // User user = userRepo.findById((Integer) session.getAttribute("user")).get();
 
             //salviamo l'elemento nel db
-            userService.saveUser(userDto, storageFileName, user);
+            userService.saveUser(userDto, storageFileName);
 
             return "redirect:formlogin";
 
