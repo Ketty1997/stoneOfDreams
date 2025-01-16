@@ -1,0 +1,16 @@
+
+
+body {
+    /* background-color: #eee !important; */
+}
+
+
+.bg-amethyst {
+    background-color: #5865f2 !important;
+}
+
+@media (min-width: 1400px) {
+    .formloginCont{
+        max-width: 75vw !important;
+    }
+}

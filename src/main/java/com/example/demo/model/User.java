@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 @Entity
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private int id;
@@ -19,6 +20,8 @@ public class User implements Serializable {
 	private String password;
 	private LocalDate dataNascita;
 	private String segnoZodiacale;
+
+    private String img;
 	
 	public User() {}
 	
@@ -72,6 +75,14 @@ public class User implements Serializable {
 
 	public void setSegnoZodiacale(String segnoZodiacale) {
 		this.segnoZodiacale = segnoZodiacale;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 	
