@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Colore</th>
+				<th>Descrizone</th>
+				<th>Elemento</th>
+				<th>Emozione</th>
+				<th>Immagine</th>
+				<th>Tipo</th>
+			<tr>
+		</thead>
+		<tbody>
+			<tr th:each="p : ${listaPietre}">
+				<td th:text="${p.nome}"></td>
+				<td th:text="${p.colore}"></td>
+				<td th:text="${p.descrizione}"></td>
+				<td th:text="${p.elemento}"></td>
+				<td th:text="${p.emozione}"></td>
+				<td><img th:src="${p.immagine}" alt="Immagine non disponibile" /></td>
+				<td th:text="${p.tipo}"></td>
+			</tr>
+		
+		
+		
+		</tbody>
+	
+	
+	</table>
+</body>
+</html>

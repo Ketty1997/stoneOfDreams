@@ -1,6 +1,11 @@
 package com.example.demo.dto.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import com.example.demo.dto.StoneDto;
+
 import com.example.demo.model.Stone;
 
 public class StoneDtoBuilder {
@@ -17,6 +22,13 @@ public class StoneDtoBuilder {
 		return s;
 	}
 	
+	public static List<StoneDto> StonefromEntityToDto(List<Stone> pietre){
+		List<StoneDto> stonesDto = new ArrayList<>();
+		for (Stone s : pietre) {
+			stonesDto.add(StoneFromEntityToDto(s));
+		}
+		return stonesDto;
+	}
 	public static StoneDto StoneFromEntityToDto(Stone s) {
 		StoneDto sDto = new StoneDto();
 		sDto.setId(s.getId());
