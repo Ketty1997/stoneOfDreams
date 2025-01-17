@@ -9,6 +9,31 @@ body {
     background-color: #5865f2 !important;
 }
 
+#cover-signup {
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    justify-content: center;
+    height: 41vw;
+}
+#signupform{
+    margin-left: 0 !important;
+}
+.date-picker {
+    width: 100%;
+    border-radius: 7px;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+#cover-signup img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 @media (min-width: 1400px) {
     .formloginCont{
         max-width: 75vw !important;
