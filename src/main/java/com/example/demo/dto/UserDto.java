@@ -2,13 +2,28 @@ package com.example.demo.dto;
 
 import java.time.LocalDate;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.constraints.NotEmpty;
+
 public class UserDto {
 	private int id;
 	private String nome;
+
+    @NotEmpty(message = "The username is required")
 	private String email;
+	
+    @NotEmpty(message = "The password is required")
 	private String password;
+	
 	private LocalDate dataNascita;
 	private String segnoZodiacale;
+
+	
+	private MultipartFile img;
+	
+	
+
 	
 	public UserDto() {}
 	
@@ -64,6 +79,14 @@ public class UserDto {
 		this.segnoZodiacale = segnoZodiacale;
 	}
 	
+
+	public MultipartFile getImg() {
+		return img;
+	}
+
+	public void setImg(MultipartFile img) {
+		this.img = img;
+	}
 	
 
 }
