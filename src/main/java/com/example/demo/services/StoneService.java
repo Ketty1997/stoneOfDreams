@@ -17,4 +17,8 @@ public class StoneService {
 	public List<StoneDto> getListaPietre(){
 		return StoneDtoBuilder.StonefromEntityToDto(stoneRepo.findAll());
 	}
+	
+	public void eliminaPietra(int id) {
+		stoneRepo.deleteById(id);
+	}
 }
