@@ -24,11 +24,15 @@
 				<td th:text="${p.descrizione}"></td>
 				<td th:text="${p.elemento}"></td>
 				<td th:text="${p.emozione}"></td>
-				<td><img th:src="${p.immagine}" alt="Immagine non disponibile" /></td>
+				<td><img th:src="@{/uploads/{filename}(filename=${p.immagine})}" alt="Immagine non disponibile" /></td>
+				
 				<td th:text="${p.tipo}"></td>
 				<td>
            			<a th:href="@{/stone/delete/{id}(id=${p.id})}" 
                		onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')">Elimina</a>
+        		</td>
+        		<td>
+            		<a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}">Aggiorna</a>
         		</td>
 			</tr>
 		

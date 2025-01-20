@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Modifica Pietra</title>
+</head>
+<body>
+	<form th:action="@{/stone/updateStone}" th:object="${updateS}" method="post">
+		  <input type="hidden" th:field="*{id}" />
+		<label for="nome">Nome</label>
+		<input type="text" th:field="*{nome}"/>
+		<br><br>
+	 	<label for="tipo">Tipo</label>
+		<input type="text" th:field="*{tipo}"/>
+		<br><br>
+		<label for="colore">Colore</label>
+		<input type="text" th:field="*{colore}"/>
+		<br><br>
+		<label for="elemento">Elemento</label>
+		<input type="text" th:field="*{elemento}"/>
+		<br><br>
+		<label for="descrizione">Descrizione</label>
+		<input type="text" th:field="*{descrizione}"/>
+		<br><br>
+		<label for="emozione">Emozione</label>
+		<input type="text" th:field="*{emozione}"/>
+		<br><br>
+		<label for="immagine">Immagine</label>
+    	<input type="file" th:field="*{immagine}" />
+    	<br><br>
+		 
+		<input class="bottone" type="submit" value="Aggiorna"/>
+	
+	</form>
+</body>
+</html>
