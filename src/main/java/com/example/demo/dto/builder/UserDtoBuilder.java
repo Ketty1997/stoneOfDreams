@@ -25,7 +25,7 @@ public class UserDtoBuilder {
 	}
 
 
-	public static User UserFromDtoToEntity (UserDto uDto) {
+	public static User UserFromDtoToEntity (UserDto uDto, String imageFileName) {
 
 		//test di verifica per vedere se viene inizializzato l'encoder
 		if (passwordEncoder == null) {
@@ -35,8 +35,8 @@ public class UserDtoBuilder {
 	
 
 		//da MultipartFile trasformiamo in stringa per inserirla nel db
-		MultipartFile userImage = uDto.getImg();
-		String userImageName = userImage.getOriginalFilename();
+		// MultipartFile userImage = uDto.getImg();
+		// String userImageName = userImage.getOriginalFilename();
 
 		User u = new User();
 		u.setId(uDto.getId());
@@ -45,7 +45,7 @@ public class UserDtoBuilder {
 		u.setPassword(passwordEncoder.encode(uDto.getPassword()));
 		u.setDataNascita(uDto.getDataNascita());
 		u.setSegnoZodiacale(uDto.getSegnoZodiacale());
-		u.setImg(userImageName);
+		u.setImg(imageFileName);
 		return u;
 	}
 	

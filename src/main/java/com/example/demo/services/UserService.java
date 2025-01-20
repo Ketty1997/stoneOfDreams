@@ -40,37 +40,47 @@ public class UserService {
 
 
     public String saveImage(MultipartFile image) throws IOException {
-
-        Date createdAt = new Date(); /*createdAt.getTime() restituisce 1725088960724, Questo numero è semplicemente un conteggio dei millisecondi trascorsi dall'inizio dell'epoca UNIX (1 gennaio 1970). */
-        String storageFileName = createdAt.getTime() + "_" + image.getOriginalFilename();
-        String uploadDir = "public/images/";
-        Path uploadPath = Paths.get(uploadDir);
-
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-
+        
         /* Questo blocco di codice mostra un'implementazione del concetto di try-with-resources, una funzionalità introdotta in Java 7 che semplifica 
         la gestione delle risorse che devono essere chiuse, come file, stream o connessioni di rete. Esaminiamo ogni parte del codice:
         InputStream inputStream = image.getInputStream(): Questo esprime che stai aprendo una risorsa, in questo caso un InputStream ottenuto dall'oggetto image. 
         Il metodo image.getInputStream() restituisce un flusso di input che può essere utilizzato per leggere i dati contenuti in image.
-
+        
         -inputStream: È il flusso di input da cui leggere i dati. In questo caso, i dati vengono letti dall'immagine rappresentata dall'oggetto image.
         -Paths.get(uploadDir + storageFileName): Questo costruisce il percorso completo dove il file verrà salvato. uploadDir è la directory in cui il file 
-            verrà memorizzato, e storageFileName è il nome del file.
+        verrà memorizzato, e storageFileName è il nome del file.
         -StandardCopyOption.REPLACE_EXISTING: Questa opzione specifica che, se un file esiste già nella destinazione con lo stesso nome, esso verrà sovrascritto.*/
-        try (InputStream inputStream = image.getInputStream()) {
-            Files.copy(inputStream, Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+        
+        String userImageName = image.getOriginalFilename();
+
+        try {
+            String uploadDir = "static/images/";
+            Path uploadPath = Paths.get(uploadDir);
+
+            if(!Files.exists(uploadPath)){
+                Files.createDirectories(uploadPath);
+            }
+
+            try (InputStream inputStream = image.getInputStream()) {
+                Files.copy(inputStream, Paths.get(uploadDir + userImageName), StandardCopyOption.REPLACE_EXISTING);
+                // System.out.println("sono ne try caricamento nella cartella");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("errore-> " + e.getMessage());
         }
 
-        return storageFileName;
+        return userImageName;
     }
 
 
     public void saveUser(UserDto userDto, String imageFileName) {
 
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
-        User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto);
+        User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName);
 
         userRepository.save(insertUser);
     }
