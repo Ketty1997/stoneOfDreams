@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class StoneDto {
 	
 	private int id;
@@ -10,7 +12,16 @@ public class StoneDto {
 	private String emozione;
 	private String descrizione;
 	private String immagine;
+	private MultipartFile immagineFile; 
 	
+	public MultipartFile getImmagineFile() {
+		return immagineFile;
+	}
+
+	public void setImmagineFile(MultipartFile immagineFile) {
+		this.immagineFile = immagineFile;
+	}
+
 	public StoneDto() {}
 	
 	public StoneDto (int id) {
