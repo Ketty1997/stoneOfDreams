@@ -2,25 +2,28 @@ package com.example.demo.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class StoneDto {
 	
 	private int id;
+
+	@NotEmpty(message = "The name is required")
 	private String nome;
+
 	private String tipo;
+
 	private String colore;
 	private String elemento;
 	private String emozione;
-	private String descrizione;
-	private String immagine;
-	private MultipartFile immagineFile; 
-	
-	public MultipartFile getImmagineFile() {
-		return immagineFile;
-	}
 
-	public void setImmagineFile(MultipartFile immagineFile) {
-		this.immagineFile = immagineFile;
-	}
+	@NotEmpty(message = "The description is required")
+	private String descrizione;
+	
+	private MultipartFile immagineFile; 
+
+
+
 
 	public StoneDto() {}
 	
@@ -83,15 +86,15 @@ public class StoneDto {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-
-	public String getImmagine() {
-		return immagine;
-	}
-
-	public void setImmagine(String immagine) {
-		this.immagine = immagine;
-	}
+		
 	
+	public MultipartFile getImmagineFile() {
+		return immagineFile;
+	}
+
+	public void setImmagineFile(MultipartFile immagineFile) {
+		this.immagineFile = immagineFile;
+	}
 	
 
 }

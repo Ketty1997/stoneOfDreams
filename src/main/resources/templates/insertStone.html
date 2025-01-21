@@ -1,35 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+<head th:insert="~{head :: headContent}" th:with="pageTitle='Insert stone'"></head>
+
 <body>
-	<form th:action="@{/stone/inserisciPietra}" th:object="${stoneForm}" method="post">
-		<label for="nome">Nome</label>
-		<input type="text" th:field="*{nome}"/>
-		<br><br>
-	 	<label for="tipo">Tipo</label>
-		<input type="text" th:field="*{tipo}"/>
-		<br><br>
-		<label for="colore">Colore</label>
-		<input type="text" th:field="*{colore}"/>
-		<br><br>
-		<label for="elemento">Elemento</label>
-		<input type="text" th:field="*{elemento}"/>
-		<br><br>
-		<label for="descrizione">Descrizione</label>
-		<input type="text" th:field="*{descrizione}"/>
-		<br><br>
-		<label for="emozione">Emozione</label>
-		<input type="text" th:field="*{emozione}"/>
-		<br><br>
-		<label for="immagine">Immagine</label>
-    	<input type="file" th:field="*{immagine}" />
-    	<br><br>
-		 
-		<input class="bottone" type="submit" value="Inserisci"/>
-	
-	</form>
+
+
+    <nav th:insert="~{header :: navbar}"></nav>
+
+	<div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto rounded border p-4 m-4">
+                <h2 class="text-center mb-5">Insert new Stone</h2>
+
+				<form th:action="@{/stone/inserisciPietra}" th:object="${stoneForm}" method="post" enctype="multipart/form-data">
+					<!--Quando utilizzi th:object in Thymeleaf, il modulo è legato all'oggetto di modello specificato (in questo caso, 
+					stoneForm che è l'oggetto stoneDto). Quando il modulo viene inviato, i valori inseriti negli input del modulo vengono automaticamente mappati 
+					sulle proprietà corrispondenti dell'oggetto productDto:
+					
+					Binding dei Dati: Thymeleaf lega gli input del modulo alle proprietà dell'oggetto productDto. Per esempio, se hai un 
+					campo di input con th:field="*{name}", Thymeleaf si aspetta che productDto abbia una proprietà chiamata name.
+
+					Invio del Modulo: Quando l'utente compila il modulo e lo invia, i dati inseriti vengono inviati al server come parte 
+					della richiesta HTTP.
+
+					Binding sul Server: Se utilizzi un framework come Spring MVC, i dati della richiesta vengono automaticamente associati 
+					ai campi dell'oggetto productDto durante la deserializzazione della richiesta. Quindi, quando la richiesta viene 
+					elaborata dal controller, productDto conterrà i valori inseriti nel modulo -->
+
+					<!-- campi restanti da fare come questo: -->
+					<div class="d-flex flex-row align-items-center mb-1">
+						<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+						<div data-mdb-input-init class="form-outline flex-fill mb-0">
+							<input type="text" id="nome" class="form-control" th:field="${stoneForm.nome}"/>
+							<label class="form-label" for="nome">Nome</label>
+							<!-- questo è un if che dice che in caso ci fosse un errore quando si invia la form al controller, il messaggio di errore viene stampato qui
+							con la classe boolean text-danger che rende il testo del messaggio rosso -->
+							<p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="${stoneForm.nome}">
+						</div>
+					</div>
+
+
+					<br><br>
+					<label for="tipo">Tipo</label>
+					<input type="text" th:field="*{tipo}"/>
+					<br><br>
+					<label for="colore">Colore</label>
+					<input type="text" th:field="*{colore}"/>
+					<br><br>
+					<label for="elemento">Elemento</label>
+					<input type="text" th:field="*{elemento}"/>
+					<br><br>
+					<label for="descrizione">Descrizione</label>
+					<input type="text" th:field="*{descrizione}"/>
+					<br><br>
+					<label for="emozione">Emozione</label>
+					<input type="text" th:field="*{emozione}"/>
+					<br><br>
+
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Image</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="file" th:field="${stoneForm.immagineFile}">
+							<p th:if="${#fields.hasErrors('immagineFile')}" th:errors="${stoneForm.immagineFile}" th:errorclass="text-danger"></p>
+						</div>
+					</div>
+					
+					<input class="bottone" type="submit" value="Inserisci"/>
+				
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
