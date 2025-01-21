@@ -2,7 +2,6 @@ package com.example.demo.dto.builder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.User;
@@ -33,10 +32,6 @@ public class UserDtoBuilder {
 		}
 		System.out.println("PasswordEncoder is initialized: " + passwordEncoder.getClass().getName());
 	
-
-		//da MultipartFile trasformiamo in stringa per inserirla nel db
-		// MultipartFile userImage = uDto.getImg();
-		// String userImageName = userImage.getOriginalFilename();
 
 		User u = new User();
 		u.setId(uDto.getId());

@@ -9,8 +9,10 @@ import com.example.demo.dto.StoneDto;
 import com.example.demo.model.Stone;
 
 public class StoneDtoBuilder {
-	public static Stone StoneFromDtoToEntity(StoneDto sDto) {
+	public static Stone StoneFromDtoToEntity(StoneDto sDto, String imageFilename) {
+
 		Stone s = new Stone();
+		
 		s.setId(sDto.getId());
 		s.setNome(sDto.getNome());
 		s.setTipo(sDto.getTipo());
@@ -18,7 +20,7 @@ public class StoneDtoBuilder {
 		s.setElemento(sDto.getElemento());
 		s.setEmozione(sDto.getEmozione());
 		s.setDescrizione(sDto.getDescrizione());
-		s.setImmagine(sDto.getImmagine());
+		s.setImmagine(imageFilename);
 		return s;
 	}
 	
@@ -38,7 +40,7 @@ public class StoneDtoBuilder {
 		sDto.setElemento(s.getElemento());
 		sDto.setEmozione(s.getEmozione());
 		sDto.setDescrizione(s.getDescrizione());
-		sDto.setImmagine(s.getImmagine());
+		// sDto.setImmagine(s.getImmagine());
 		return sDto;
 	}
 }

@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,7 @@ public class UserService {
         String userImageName = image.getOriginalFilename();
 
         try {
-            String uploadDir = "static/images/";
+            String uploadDir = "src/main/resources/static/images/";
             Path uploadPath = Paths.get(uploadDir);
 
             if(!Files.exists(uploadPath)){
