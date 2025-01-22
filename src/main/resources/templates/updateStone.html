@@ -5,7 +5,7 @@
 <title>Modifica Pietra</title>
 </head>
 <body>
-	<form th:action="@{/stone/updateStone}" th:object="${updateS}" method="post">
+	<form th:action="@{/stone/updateStone}" th:object="${updateS}" method="post" enctype="multipart/form-data">
 		  <input type="hidden" th:field="*{id}" />
 		<label for="nome">Nome</label>
 		<input type="text" th:field="*{nome}"/>
@@ -25,8 +25,9 @@
 		<label for="emozione">Emozione</label>
 		<input type="text" th:field="*{emozione}"/>
 		<br><br>
-		<label for="immagine">Immagine</label>
-    	<input type="file" th:field="*{immagine}" />
+		<label for="immagineFile">Immagine</label>
+    	<input type="file" th:field="*{immagineFile}" />
+    	<p th:if="${#fields.hasErrors('immagineFile')}" th:errors="*{immagineFile}" style="color: red;"></p>
     	<br><br>
 		 
 		<input class="bottone" type="submit" value="Aggiorna"/>
