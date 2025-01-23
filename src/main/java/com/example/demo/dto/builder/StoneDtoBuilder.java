@@ -40,7 +40,7 @@ public class StoneDtoBuilder {
 		sDto.setElemento(s.getElemento());
 		sDto.setEmozione(s.getEmozione());
 		sDto.setDescrizione(s.getDescrizione());
-		// sDto.setImmagine(s.getImmagine());
+		sDto.setImgName(s.getImmagine());
 		return sDto;
 	}
 }

@@ -26,7 +26,9 @@
 				<td th:text="${p.descrizione}"></td>
 				<td th:text="${p.elemento}"></td>
 				<td th:text="${p.emozione}"></td>
-				<td><img th:src="@{/uploads/{filename}(filename=${p.immagineFile})}" alt="Immagine non disponibile" /></td>
+				<td>
+					<img th:src="@{/images/} + ${p.imgName}" alt="..." width="100">
+				</td>
 				
 				<td th:text="${p.tipo}"></td>
 				<td>

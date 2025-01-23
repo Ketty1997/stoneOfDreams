@@ -32,6 +32,7 @@ public class StoneCtr {
 	public String listaPietre(Model model) {
 		List<StoneDto> listaPietre = stoneService.getListaPietre();
 		model.addAttribute("listaPietre", listaPietre);
+		
 		return "stones";
 	}
 	
