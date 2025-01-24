@@ -13,10 +13,13 @@ public class UserDto {
     @NotEmpty(message = "The username is required")
 	private String email;
 	
-    @NotEmpty(message = "The password is required")
+    
 	private String password;
 	
 	private LocalDate dataNascita;
+	  private String formattedDataNascita;
+	
+
 	private String segnoZodiacale;
 
 	
@@ -88,5 +91,11 @@ public class UserDto {
 		this.img = img;
 	}
 	
+	public String getFormattedDataNascita() {
+		return formattedDataNascita;
+	}
 
+	public void setFormattedDataNascita(String formattedDataNascita) {
+		this.formattedDataNascita = formattedDataNascita;
+	}
 }

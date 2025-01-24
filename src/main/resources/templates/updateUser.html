@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aggiorna Profilo</title>
+</head>
+<body>
+    <h1>Aggiorna il tuo profilo</h1>
+    <form th:action="@{/user/updateUser}" th:object="${updateU}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}"/>
+        <label for="nome">Nome:</label>
+        <input type="text" th:field="*{nome}"/>
+        <br/>
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{email}" />
+        <br/>
+       
+    	<label for="dataNascita">Data di nascita:</label>
+		<input type="date" th:field="*{formattedDataNascita}" />
+        <br/>
+        <label for="segnoZodiacale">Segno Zodiacale:</label>
+        <input type="text" th:field="*{segnoZodiacale}"/>
+        <br/>
+        <label for="password">Password:</label>
+		<input type="password" th:field="*{password}" />
+        <label for="img">Immagine del profilo:</label>
+        <input type="file" th:field="*{img}" />
+        <br/><br/>
+        <button type="submit">Salva Modifiche</button>
+    </form>
+</body>
+</html>
