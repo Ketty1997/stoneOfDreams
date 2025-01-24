@@ -1,37 +1,72 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Modifica Pietra</title>
-</head>
+
+<head th:insert="~{head :: headContent}" th:with="pageTitle='Insert stone'"></head>
+
 <body>
-	<form th:action="@{/stone/updateStone}" th:object="${updateS}" method="post" enctype="multipart/form-data">
-		  <input type="hidden" th:field="*{id}" />
-		<label for="nome">Nome</label>
-		<input type="text" th:field="*{nome}"/>
-		<br><br>
-	 	<label for="tipo">Tipo</label>
-		<input type="text" th:field="*{tipo}"/>
-		<br><br>
-		<label for="colore">Colore</label>
-		<input type="text" th:field="*{colore}"/>
-		<br><br>
-		<label for="elemento">Elemento</label>
-		<input type="text" th:field="*{elemento}"/>
-		<br><br>
-		<label for="descrizione">Descrizione</label>
-		<input type="text" th:field="*{descrizione}"/>
-		<br><br>
-		<label for="emozione">Emozione</label>
-		<input type="text" th:field="*{emozione}"/>
-		<br><br>
-		<label for="immagineFile">Immagine</label>
-    	<input type="file" th:field="*{immagineFile}" />
-    	<p th:if="${#fields.hasErrors('immagineFile')}" th:errors="*{immagineFile}" style="color: red;"></p>
-    	<br><br>
-		 
-		<input class="bottone" type="submit" value="Aggiorna"/>
+
+    <nav th:insert="~{header :: navbar}"></nav>
+
+	<div class="container mt-5 mb-5">
+
+		<form th:action="@{/stone/updateStone}" th:object="${updateS}" method="post" enctype="multipart/form-data">
 	
-	</form>
+			<div class="card" style="width: 38rem;">
+
+				<img th:src="@{/images/} + ${updateS.imgName}"  class="card-img-top" alt="...">
+
+				<div class="card-body">
+				  <h5 class="card-title">Update <b th:text="${updateS.nome}"></b></h5>
+				</div>
+
+				<input type="hidden" th:field="*{id}" />
+			
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{nome}" class="form-control" id="floatingInput" placeholder="name">
+					<label for="floatingInput">Name</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{tipo}" class="form-control" id="floatingInput" placeholder="type">
+					<label for="floatingInput">Type</label>
+				</div>
+				
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{colore}" class="form-control" id="floatingInput" placeholder="Colour">
+					<label for="floatingInput">Colour</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{elemento}" class="form-control" id="floatingInput" placeholder="Element">
+					<label for="floatingInput">Element</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{descrizione}" class="form-control" id="floatingInput" placeholder="Description">
+					<label for="floatingInput">Description</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{emozione}" class="form-control" id="floatingInput" placeholder="Emotion">
+					<label for="floatingInput">Emotion</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
+					<input type="file" th:field="*{immagineFile}" class="form-control" id="floatingInput" placeholder="Image">
+					<label for="floatingInput">Image</label>
+					<p th:if="${#fields.hasErrors('immagineFile')}" th:errors="*{immagineFile}" style="color: red;"></p>
+				</div>
+			
+
+				<div class="card-body">
+					<input class="btn text-white btn-lg px-4 me-sm-3 bg-amethyst bottone" type="submit" value="Update"/>
+
+				  <a href="/stone/" class="card-link">Go back</a>
+				</div>
+			</div>
+	
+		
+	
+			
+			
+		
+		</form>
+	</div>
+
 </body>
 </html>

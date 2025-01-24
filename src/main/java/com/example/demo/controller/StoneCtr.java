@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.StoneDto;
 import com.example.demo.services.StoneService;
@@ -87,8 +88,10 @@ public class StoneCtr {
 		model.addAttribute("updateS", stoneService.aggiornaPietra(id));
 		return "updateStone";
 	}
+
+
 	@PostMapping("updateStone")
-	public String update(Model model, @ModelAttribute("updateS") @Valid StoneDto sDto, BindingResult result) {
+	public String update(Model model, @ModelAttribute("updateS") @Valid StoneDto sDto, BindingResult result, RedirectAttributes redirectAttributes) {
 		 // 1. Controlla se ci sono errori di validazione nel form
 	    //    Il parametro `BindingResult` contiene eventuali errori di validazione del DTO (StoneDto).
 	    //    Se ci sono errori, torna indietro alla pagina di aggiornamento mostrando gli errori.
@@ -118,7 +121,8 @@ public class StoneCtr {
 	        	 // 6. Gestisce errori generici legati al salvataggio del file.
 	            //    Aggiunge un errore a `BindingResult` per mostrarlo nel form
 	            result.addError(new FieldError("updateS", "immagineFile", "Errore durante il caricamento dell'immagine: " + e.getMessage()));
-	            return "updateStone";
+				return "redirect:/stone";
+
 	        }
 	    }
 
@@ -126,6 +130,7 @@ public class StoneCtr {
 	    try {
 	    	// Usa il servizio per salvare i dati nel database, passando il DTO e il nome dell'immagine.
 	        stoneService.inserisciPietra(sDto, storageFileName);
+			redirectAttributes.addFlashAttribute("successMessage", "La pietra è stata correttamente aggiornata.");
 	    }
 	    catch (Exception e) {
 	    	// 8. Gestisce eventuali altri errori generici durante il salvataggio della pietra nel database.
@@ -133,7 +138,7 @@ public class StoneCtr {
 	        return "updateStone";
 	    }
 
-	    return "success";
+	    return "redirect:/stone";
 	}
 
 	@GetMapping("/delete/{id}")
