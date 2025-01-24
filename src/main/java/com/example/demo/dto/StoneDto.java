@@ -19,7 +19,8 @@ public class StoneDto {
 
 	@NotEmpty(message = "The description is required")
 	private String descrizione;
-	
+
+	private String imgName;
 	private MultipartFile immagineFile; 
 
 
@@ -87,6 +88,8 @@ public class StoneDto {
 		this.descrizione = descrizione;
 	}
 		
+
+	
 	
 	public MultipartFile getImmagineFile() {
 		return immagineFile;
@@ -94,6 +97,14 @@ public class StoneDto {
 
 	public void setImmagineFile(MultipartFile immagineFile) {
 		this.immagineFile = immagineFile;
+	}
+
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
 	}
 	
 

@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ public class StoneCtr {
 	public String listaPietre(Model model) {
 		List<StoneDto> listaPietre = stoneService.getListaPietre();
 		model.addAttribute("listaPietre", listaPietre);
+		
 		return "stones";
 	}
 	
@@ -84,11 +87,55 @@ public class StoneCtr {
 		model.addAttribute("updateS", stoneService.aggiornaPietra(id));
 		return "updateStone";
 	}
-	// @PostMapping("updateStone")
-	// public String update(Model model, @ModelAttribute("updateS") StoneDto sDto) {
-	// 	stoneService.inserisciPietra(sDto);
-	// 	return "success";
-	// }
+	@PostMapping("updateStone")
+	public String update(Model model, @ModelAttribute("updateS") @Valid StoneDto sDto, BindingResult result) {
+		 // 1. Controlla se ci sono errori di validazione nel form
+	    //    Il parametro `BindingResult` contiene eventuali errori di validazione del DTO (StoneDto).
+	    //    Se ci sono errori, torna indietro alla pagina di aggiornamento mostrando gli errori.
+		
+		if (result.hasErrors()) {
+	        return "updateStone";
+	    }
+
+	    // 2. Inizializza una variabile per il nome del file immagine.
+	    //    Questo sarà il nome dell'immagine salvata nella directory.
+	    String storageFileName = null;
+
+	    // 3. Verifica se il campo immagine nel form non è vuoto (l'utente ha caricato un file).
+	    if (!sDto.getImmagineFile().isEmpty()) {
+	    	// 4. Chiama il metodo `saveImage` nel service per salvare il file nella directory
+            //    e assegna il nome del file salvato a `storageFileName`.
+	        try {
+	            storageFileName = stoneService.saveImage(sDto.getImmagineFile());
+	        } catch (org.springframework.web.multipart.MaxUploadSizeExceededException e) {
+		    	// 5. Gestisce l'errore specifico in cui l'immagine supera la dimensione massima consentita.
+		        //    Aggiunge un messaggio di errore specifico e torna al form.
+
+		        result.addError(new FieldError("updateS", "immagineFile", "L'immagine che hai selezionato è troppo grande! Il limite massimo è 10MB."));
+		        return "updateStone";
+		    }
+	        catch (IOException e) {
+	        	 // 6. Gestisce errori generici legati al salvataggio del file.
+	            //    Aggiunge un errore a `BindingResult` per mostrarlo nel form
+	            result.addError(new FieldError("updateS", "immagineFile", "Errore durante il caricamento dell'immagine: " + e.getMessage()));
+	            return "updateStone";
+	        }
+	    }
+
+	    //7. Dopo aver salvato il file immagine (se presente), prova a salvare la pietra nel database.
+	    try {
+	    	// Usa il servizio per salvare i dati nel database, passando il DTO e il nome dell'immagine.
+	        stoneService.inserisciPietra(sDto, storageFileName);
+	    }
+	    catch (Exception e) {
+	    	// 8. Gestisce eventuali altri errori generici durante il salvataggio della pietra nel database.
+	       result.addError(new FieldError("updateS", "nome", "Errore durante il salvataggio: " + e.getMessage()));
+	        return "updateStone";
+	    }
+
+	    return "success";
+	}
+
 	@GetMapping("/delete/{id}")
 	public String elimina(@PathVariable int id) {
 		stoneService.eliminaPietra(id);
