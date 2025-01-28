@@ -16,6 +16,9 @@
      <form th:action="@{/user/preUpdateUser/{id}(id=${user.id})}" method="get">
         <button type="submit">Aggiorna Profilo</button>
     </form>
+       <form th:action="@{/user/preChangePassword}" method="get">
+            <button type="submit">Aggiorna Password</button>
+        </form>
       <form th:action="@{/user/delete/{id}(id=${user.id})}" method="get">
         <button type="submit">Elimina Profilo</button>
     </form>

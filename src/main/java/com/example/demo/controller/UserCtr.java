@@ -29,7 +29,7 @@ public class UserCtr {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("details")
+	@GetMapping
 	public String userDetails(HttpSession session, Model model) {
 		//controllo se l'utente e' loggato altrimenti lo mando alla pagina login
 		if(session.getAttribute("user")==null) {
@@ -80,12 +80,9 @@ public class UserCtr {
 	        storageFileName = null; // O in alternativa, puoi passare il nome del file esistente se è stato caricato prima
 	    }
 
-	    // Gestione della password
-	    if (uDto.getPassword() == null || uDto.getPassword().isEmpty()) {
-	        // Se la password non è stata fornita, mantieni la password attuale
-	        uDto.setPassword(null);  // Non modificare la password
-	    }
-
+	    // Escludiamo la password dalle modifiche
+	    uDto.setPassword(null);
+	    
 	    // Gestione della data di nascita
 	    
 	    // Converti la data di nascita da stringa a LocalDate
@@ -104,8 +101,36 @@ public class UserCtr {
 
 	    return "success";  // Redirigi alla pagina di successo
 	}
-
-	@GetMapping("/delete/{id}")
+	
+	@GetMapping("preChangePassword")
+	public String preChangePassword(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			return "redirect:/formLogin";
+		}
+		model.addAttribute("changePasswordForm", new UserDto());
+		return "changePasswordForm";
+	}
+	@PostMapping("changePassword")
+	public String changePwd(HttpSession session, @ModelAttribute("changePasswordForm") UserDto password, BindingResult result) {
+	
+		   if(result.hasErrors()) {
+			return "changePasswordForm";
+		}
+		System.out.println("Password ricevuta: " + password.getPassword());
+		User currentUser = userService.getUserFromSession(session);
+		if(currentUser==null) {
+			return "redirect:/formLogin";
+		}
+		try {
+			userService.updatePassword(currentUser.getId(), password.getPassword());
+			
+		}catch(Exception e) {
+			result.addError(new FieldError("changePasswordFrom", "error", "errore durante l'operazione"));
+			return "changePasswordForm";
+		}
+		return "success";
+	}
+	@GetMapping("delete/{id}")
 	public String elimina(@PathVariable int id) {
 		userService.eliminaUser(id);
 		return"success";

@@ -104,5 +104,6 @@ public class UserService {
     public void eliminaUser(int id) {
 		userRepository.deleteById(id);
 	}
+    public void updatePassword(int userId, String newPassword) {}
     
 }
