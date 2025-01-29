@@ -59,12 +59,12 @@ public class UserCtr {
 	@PostMapping("updateUser")
 	public String update(Model model, @ModelAttribute("updateU") @Valid UserDto uDto, BindingResult result) {
 		if (result.hasErrors()) {
-	        // Mostra gli errori di validazione
-	        System.out.println("Errori di validazione: " + result.getAllErrors());
-	        return "updateUser";
+				return "updateUser";
 	    }
-
-	    String storageFileName = null;
+		//recupero utente dal db per prendere l'immagine attuale
+	    User currentUser = userService.getUserById(uDto.getId());
+	    //se l'utente esiste prendi il valore dell'immagine altrimenti porta storageFileName a null
+	    String storageFileName = (currentUser != null) ? currentUser.getImg() : null;
 
 	    // Gestione dell'immagine
 	    if (uDto.getImg() != null && !uDto.getImg().isEmpty()) {
@@ -75,9 +75,6 @@ public class UserCtr {
 	            result.addError(new FieldError("updateU", "img", "Errore durante il caricamento dell'immagine: " + e.getMessage()));
 	            return "updateUser";
 	        }
-	    } else {
-	        // Se non è stata fornita una nuova immagine, manteniamo quella esistente
-	        storageFileName = null; // O in alternativa, puoi passare il nome del file esistente se è stato caricato prima
 	    }
 
 	    // Escludiamo la password dalle modifiche
