@@ -144,7 +144,7 @@ public class StoneCtr {
 	@GetMapping("/delete/{id}")
 	public String elimina(@PathVariable int id) {
 		stoneService.eliminaPietra(id);
-		return"success";
+		return "redirect:/stone";
 	}
 
 }
