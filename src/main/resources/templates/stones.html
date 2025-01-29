@@ -7,6 +7,12 @@
 <body>
 
 	<a href="/stone/preInsertStone">Inserisci</a>
+
+	<!-- messaggio aggioramento avvenuto -->
+	<div id="success-message" th:if="${successMessage}" class="alert alert-success" style="background-color: green;">
+		<p style="color: aliceblue;" th:text="${successMessage}"></p>	
+	</div>
+
 	<table>
 		<thead>
 			<tr>
@@ -46,5 +52,18 @@
 	
 	
 	</table>
+
+	<!-- gestione visibilità messaggio aggiornamento -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const messageDiv = document.getElementById("success-message");
+			if (messageDiv) {
+				setTimeout(() => {
+					messageDiv.style.display = "none";
+				}, 3000); // 3000 millisecondi = 3 secondi
+			}
+		});
+	</script>
+	
 </body>
 </html>
