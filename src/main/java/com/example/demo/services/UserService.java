@@ -13,8 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.dto.StoneDto;
 import com.example.demo.dto.UserDto;
+import com.example.demo.dto.builder.StoneDtoBuilder;
 import com.example.demo.dto.builder.UserDtoBuilder;
+import com.example.demo.model.Stone;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
@@ -77,7 +80,8 @@ public class UserService {
 
 
     public void saveUser(UserDto userDto, String imageFileName) {
-
+    	 System.out.println("Salvataggio utente: " + userDto);
+    	    System.out.println("Nome immagine salvata: " + imageFileName);
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
         User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName);
 
@@ -92,6 +96,13 @@ public class UserService {
         User user = userRepository.findById((Integer) session.getAttribute("user")).get();
         return user;
     }
-
+    
+    public UserDto aggiornaUser(int id) {
+		
+		return UserDtoBuilder.UserFromEntityToDto(userRepository.findById(id).orElse(new User()));
+	}
+    public void eliminaUser(int id) {
+		userRepository.deleteById(id);
+	}
     
 }
