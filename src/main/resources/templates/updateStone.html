@@ -13,7 +13,9 @@
 	
 			<div class="card" style="width: 38rem;">
 
-				<img th:src="@{/images/} + ${updateS.imgName}"  class="card-img-top" alt="...">
+				<img style="object-fit: cover; height: 300px;border: 1px solid #d8d8d8;" 
+					th:src="@{/images/} + ${updateS.imgName}"  class="card-img-top" alt="..."
+				>
 
 				<div class="card-body">
 				  <h5 class="card-title">Update <b th:text="${updateS.nome}"></b></h5>
