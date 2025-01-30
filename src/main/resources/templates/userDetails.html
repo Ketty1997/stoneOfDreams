@@ -1,26 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Dettagli</title>
-</head>
-<body>
-	<h1>Il tuo profilo</h1>
-    <p><strong>NOME:</strong> <span th:text="${user.nome}"></span></p>
-    <p><strong>EMAIL:</strong> <span th:text="${user.email}"></span></p>
-    <p><strong>DATA DI NASCITA:</strong> <span th:text="${user.dataNascita}"></span></p>
-    <p><strong>SEGNO ZODIACALE:</strong> <span th:text="${user.segnoZodiacale}"></span></p>
-    <p><strong>IMMAGINE DEL PROFILO:</strong></p>
-    <img alt="Profilo img" th:src="@{/images/{img}(img=${user.img})}">
+<!doctype html>
+<html lang="en">
     
-     <form th:action="@{/user/preUpdateUser/{id}(id=${user.id})}" method="get">
-        <button type="submit">Aggiorna Profilo</button>
-    </form>
-       <form th:action="@{/user/preChangePassword}" method="get">
+  <head th:insert="~{head :: headContent}" th:with="pageTitle='User account'"></head>
+
+  <body>
+
+    <nav th:insert="~{header :: navbar}"></nav>
+    <div class="container">
+
+        
+        <h1>Il tuo profilo</h1>
+        <p><strong>NOME:</strong> <span th:text="${user.nome}"></span></p>
+        <p><strong>EMAIL:</strong> <span th:text="${user.email}"></span></p>
+        <p><strong>DATA DI NASCITA:</strong> <span th:text="${user.dataNascita}"></span></p>
+        <p><strong>SEGNO ZODIACALE:</strong> <span th:text="${user.segnoZodiacale}"></span></p>
+        <p><strong>IMMAGINE DEL PROFILO:</strong></p>
+        <img width="200" alt="Profilo img" th:src="@{/images/{img}(img=${user.img})}">
+        
+        <form th:action="@{/user/preUpdateUser/{id}(id=${user.id})}" method="get">
+            <button type="submit">Aggiorna Profilo</button>
+        </form>
+        <form th:action="@{/user/preChangePassword}" method="get">
             <button type="submit">Aggiorna Password</button>
         </form>
-      <form th:action="@{/user/delete/{id}(id=${user.id})}" method="get">
-        <button type="submit">Elimina Profilo</button>
-    </form>
+        <form th:action="@{/user/delete/{id}(id=${user.id})}" method="get">
+            <button type="submit">Elimina Profilo</button>
+        </form>
+        
+    </div>
+
+    <footer th:insert="~{footer :: footer-el}"></footer>
+
 </body>
 </html>

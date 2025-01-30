@@ -21,6 +21,7 @@ import com.example.demo.dto.builder.UserDtoBuilder;
 import com.example.demo.model.Stone;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.util.PasswordEncoder;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -29,6 +30,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
 
@@ -81,10 +85,9 @@ public class UserService {
 
 
     public void saveUser(UserDto userDto, String imageFileName) {
-    	 System.out.println("Salvataggio utente: " + userDto);
-    	    System.out.println("Nome immagine salvata: " + imageFileName);
+
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
-        User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName);
+        User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName, passwordEncoder.encode(userDto.getPassword()));
 
         userRepository.save(insertUser);
     }

@@ -10,7 +10,7 @@ import com.example.demo.util.PasswordEncoder;
 @Component // -> importante che sia annotata con Component per essere gestita da spring
 public class UserDtoBuilder {
 
-	private static PasswordEncoder passwordEncoder;
+	// private static PasswordEncoder passwordEncoder;
 
 	//in questo caso non possiamo fare direttamente @Autowired di PasswordEncoder perché dobbiamo usarlo in un metodo statico e darebbe problemi
 	// Dobbiamo quindi utilizzare un Setter Statico per Iniettare PasswordEncoder e poterlo usare nel metodo statico
@@ -18,26 +18,26 @@ public class UserDtoBuilder {
 		- Spring inietterà il bean PasswordEncoder una volta nel metodo setPasswordEncoder, che assegna il valore alla variabile statica.
 		- Successivamente, il metodo statico UserFromDtoToEntity potrà accedere alla variabile passwordEncoder.
  	*/
-	@Autowired
-	public void setPasswordEncoder(PasswordEncoder encoder) {
-		UserDtoBuilder.passwordEncoder = encoder;
-	}
+	// @Autowired
+	// public void setPasswordEncoder(PasswordEncoder encoder) {
+	// 	UserDtoBuilder.passwordEncoder = encoder;
+	// }
 
 
-	public static User UserFromDtoToEntity (UserDto uDto, String imageFileName) {
+	public static User UserFromDtoToEntity (UserDto uDto, String imageFileName, String passw) {
 
 		//test di verifica per vedere se viene inizializzato l'encoder
-		if (passwordEncoder == null) {
-			throw new IllegalStateException("PasswordEncoder is not initialized!");
-		}
-		System.out.println("PasswordEncoder is initialized: " + passwordEncoder.getClass().getName());
+		// if (passwordEncoder == null) {
+		// 	throw new IllegalStateException("PasswordEncoder is not initialized!");
+		// }
+		// System.out.println("PasswordEncoder is initialized: " + passwordEncoder.getClass().getName());
 	
 
 		User u = new User();
 		u.setId(uDto.getId());
 		u.setNome(uDto.getNome());
 		u.setEmail(uDto.getEmail());
-		u.setPassword(passwordEncoder.encode(uDto.getPassword()));
+		u.setPassword(passw);
 		u.setDataNascita(uDto.getDataNascita());
 		u.setSegnoZodiacale(uDto.getSegnoZodiacale());
 		u.setImg(imageFileName);

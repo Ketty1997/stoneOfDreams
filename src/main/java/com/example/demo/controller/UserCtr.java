@@ -29,7 +29,7 @@ public class UserCtr {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping
+	@GetMapping({"","/"})
 	public String userDetails(HttpSession session, Model model) {
 		//controllo se l'utente e' loggato altrimenti lo mando alla pagina login
 		if(session.getAttribute("user")==null) {
@@ -110,7 +110,7 @@ public class UserCtr {
 	@PostMapping("changePassword")
 	public String changePwd(HttpSession session, @ModelAttribute("changePasswordForm") UserDto password, BindingResult result) {
 	
-		   if(result.hasErrors()) {
+		if(result.hasErrors()) {
 			return "changePasswordForm";
 		}
 		System.out.println("Password ricevuta: " + password.getPassword());

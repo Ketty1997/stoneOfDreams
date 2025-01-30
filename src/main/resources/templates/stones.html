@@ -1,50 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<!doctype html>
+<html lang="en">
+
+<head th:insert="~{head :: headContent}" th:with="pageTitle='All stones'"></head>
+
 <body>
 
-	<a href="/stone/preInsertStone">Inserisci</a>
-	<table>
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Colore</th>
-				<th>Descrizone</th>
-				<th>Elemento</th>
-				<th>Emozione</th>
-				<th>Immagine</th>
-				<th>Tipo</th>
-			<tr>
-		</thead>
-		<tbody>
-			<tr th:each="p : ${listaPietre}">
-				<td th:text="${p.nome}"></td>
-				<td th:text="${p.colore}"></td>
-				<td th:text="${p.descrizione}"></td>
-				<td th:text="${p.elemento}"></td>
-				<td th:text="${p.emozione}"></td>
-				<td>
-					<img th:src="@{/images/} + ${p.imgName}" alt="..." width="100">
-				</td>
-				
-				<td th:text="${p.tipo}"></td>
-				<td>
-           			<a th:href="@{/stone/delete/{id}(id=${p.id})}" 
-               		onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')">Elimina</a>
-        		</td>
-        		<td>
-            		<a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}">Aggiorna</a>
-        		</td>
-			</tr>
-		
-		
-		
-		</tbody>
+	<nav th:insert="~{header :: navbar}"></nav>
+	<div class="container">
+
+		<a href="/stone/preInsertStone">Inserisci</a>
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Colore</th>
+					<th>Descrizone</th>
+					<th>Elemento</th>
+					<th>Emozione</th>
+					<th>Immagine</th>
+					<th>Tipo</th>
+				<tr>
+			</thead>
+			<tbody>
+				<tr th:each="p : ${listaPietre}">
+					<td th:text="${p.nome}"></td>
+					<td th:text="${p.colore}"></td>
+					<td th:text="${p.descrizione}"></td>
+					<td th:text="${p.elemento}"></td>
+					<td th:text="${p.emozione}"></td>
+					<td>
+						<img th:src="@{/images/} + ${p.imgName}" alt="..." width="100">
+					</td>
+
+					<td th:text="${p.tipo}"></td>
+					<td>
+						<a th:href="@{/stone/delete/{id}(id=${p.id})}"
+							onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')">Elimina</a>
+					</td>
+					<td>
+						<a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}">Aggiorna</a>
+					</td>
+				</tr>
+
+
+
+			</tbody>
+
+
+		</table>
+	</div>
+
+	<footer th:insert="~{footer :: footer-el}"></footer>
 	
-	
-	</table>
 </body>
+
 </html>

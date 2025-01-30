@@ -25,9 +25,9 @@
               <li>
                 <div style=" width: 110px;height: 110px; border-radius: 50%; margin-left: 15px; overflow: hidden;">
                   <!-- prendo l'immagine dalla sessione passata dal mapping "/" -->
-                  <img id="profiloImg" onclick="window.location.href='/account'" style="width: 100%; height: 100%; object-fit: cover;" th:src="@{'/images/' + ${session.imgUser}}" alt="immagine di profilo">
+                  <img id="profiloImg" onclick="window.location.href='/user'" style="width: 100%; height: 100%; object-fit: cover;" th:src="@{'/images/' + ${session.imgUser}}" alt="immagine di profilo">
                 </div>
-                <a class="dropdown-item" href="/account">My Account</a>
+                <a class="dropdown-item" href="/user">My Account</a>
               </li>
               <li><a class="dropdown-item text-danger" href="/logout">Log out</a></li>
             </ul>
