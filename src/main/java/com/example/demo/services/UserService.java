@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import com.example.demo.dto.builder.UserDtoBuilder;
 import com.example.demo.model.Stone;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.util.PasswordEncoder;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -28,6 +30,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
 
@@ -83,7 +88,7 @@ public class UserService {
     	 System.out.println("Salvataggio utente: " + userDto);
     	    System.out.println("Nome immagine salvata: " + imageFileName);
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
-        User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName);
+        User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName, passwordEncoder.encode(userDto.getPassword()));
 
         userRepository.save(insertUser);
     }
@@ -103,6 +108,20 @@ public class UserService {
 	}
     public void eliminaUser(int id) {
 		userRepository.deleteById(id);
+	}
+
+    public void updatePassword(int userId, String newPassword) {
+    	User user = userRepository.findById(userId).orElse(null);
+    	if(user != null) {
+    		String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+    		user.setPassword(hashedPassword);
+    		userRepository.save(user);
+    	}
+    }
+
+
+	public User getUserById(int id) {
+		return userRepository.findById(id).orElse(null);
 	}
     
 }

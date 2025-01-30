@@ -10,7 +10,7 @@ public class UserDto {
 	private int id;
 	private String nome;
 
-    @NotEmpty(message = "The username is required")
+   
 	private String email;
 	
     

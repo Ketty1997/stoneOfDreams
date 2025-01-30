@@ -29,7 +29,7 @@ public class UserCtr {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("details")
+	@GetMapping({"","/"})
 	public String userDetails(HttpSession session, Model model) {
 		//controllo se l'utente e' loggato altrimenti lo mando alla pagina login
 		if(session.getAttribute("user")==null) {
@@ -59,12 +59,13 @@ public class UserCtr {
 	@PostMapping("updateUser")
 	public String update(Model model, @ModelAttribute("updateU") @Valid UserDto uDto, BindingResult result) {
 		if (result.hasErrors()) {
-	        // Mostra gli errori di validazione
-	        System.out.println("Errori di validazione: " + result.getAllErrors());
-	        return "updateUser";
+				return "updateUser";
 	    }
+		//recupero utente dal db per prendere l'immagine attuale
+	    User currentUser = userService.getUserById(uDto.getId());
+	    //se l'utente esiste prendi il valore dell'immagine altrimenti porta storageFileName a null
+	    String storageFileName = (currentUser != null) ? currentUser.getImg() : null;
 
-	    String storageFileName = null;
 
 	    // Gestione dell'immagine
 	    if (uDto.getImg() != null && !uDto.getImg().isEmpty()) {
@@ -75,16 +76,12 @@ public class UserCtr {
 	            result.addError(new FieldError("updateU", "img", "Errore durante il caricamento dell'immagine: " + e.getMessage()));
 	            return "updateUser";
 	        }
-	    } else {
-	        // Se non è stata fornita una nuova immagine, manteniamo quella esistente
-	        storageFileName = null; // O in alternativa, puoi passare il nome del file esistente se è stato caricato prima
+
 	    }
 
-	    // Gestione della password
-	    if (uDto.getPassword() == null || uDto.getPassword().isEmpty()) {
-	        // Se la password non è stata fornita, mantieni la password attuale
-	        uDto.setPassword(null);  // Non modificare la password
-	    }
+	    // Escludiamo la password dalle modifiche
+	    uDto.setPassword(null);
+	    
 
 	    // Gestione della data di nascita
 	    
@@ -104,8 +101,37 @@ public class UserCtr {
 
 	    return "success";  // Redirigi alla pagina di successo
 	}
-
-	@GetMapping("/delete/{id}")
+	
+	@GetMapping("preChangePassword")
+	public String preChangePassword(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			return "redirect:/formLogin";
+		}
+		model.addAttribute("changePasswordForm", new UserDto());
+		return "changePasswordForm";
+	}
+	@PostMapping("changePassword")
+	public String changePwd(HttpSession session, @ModelAttribute("changePasswordForm") UserDto password, BindingResult result) {
+	
+		if(result.hasErrors()) {
+			return "changePasswordForm";
+		}
+		System.out.println("Password ricevuta: " + password.getPassword());
+		User currentUser = userService.getUserFromSession(session);
+		if(currentUser==null) {
+			return "redirect:/formLogin";
+		}
+		try {
+			userService.updatePassword(currentUser.getId(), password.getPassword());
+			
+		}catch(Exception e) {
+			result.addError(new FieldError("changePasswordFrom", "error", "errore durante l'operazione"));
+			return "changePasswordForm";
+		}
+		return "success";
+	}
+  
+	@GetMapping("delete/{id}")
 	public String elimina(@PathVariable int id) {
 		userService.eliminaUser(id);
 		return"success";
