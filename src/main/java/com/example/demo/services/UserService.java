@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -104,7 +105,14 @@ public class UserService {
     public void eliminaUser(int id) {
 		userRepository.deleteById(id);
 	}
-    public void updatePassword(int userId, String newPassword) {}
+    public void updatePassword(int userId, String newPassword) {
+    	User user = userRepository.findById(userId).orElse(null);
+    	if(user != null) {
+    		String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+    		user.setPassword(hashedPassword);
+    		userRepository.save(user);
+    	}
+    }
 
 
 
