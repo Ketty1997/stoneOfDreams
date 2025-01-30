@@ -66,6 +66,7 @@ public class UserCtr {
 	    //se l'utente esiste prendi il valore dell'immagine altrimenti porta storageFileName a null
 	    String storageFileName = (currentUser != null) ? currentUser.getImg() : null;
 
+
 	    // Gestione dell'immagine
 	    if (uDto.getImg() != null && !uDto.getImg().isEmpty()) {
 	        // Se è stata fornita una nuova immagine, la salviamo
@@ -75,11 +76,13 @@ public class UserCtr {
 	            result.addError(new FieldError("updateU", "img", "Errore durante il caricamento dell'immagine: " + e.getMessage()));
 	            return "updateUser";
 	        }
+
 	    }
 
 	    // Escludiamo la password dalle modifiche
 	    uDto.setPassword(null);
 	    
+
 	    // Gestione della data di nascita
 	    
 	    // Converti la data di nascita da stringa a LocalDate
@@ -127,6 +130,7 @@ public class UserCtr {
 		}
 		return "success";
 	}
+  
 	@GetMapping("delete/{id}")
 	public String elimina(@PathVariable int id) {
 		userService.eliminaUser(id);

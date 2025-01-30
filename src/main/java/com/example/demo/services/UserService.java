@@ -85,7 +85,8 @@ public class UserService {
 
 
     public void saveUser(UserDto userDto, String imageFileName) {
-
+    	 System.out.println("Salvataggio utente: " + userDto);
+    	    System.out.println("Nome immagine salvata: " + imageFileName);
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
         User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName, passwordEncoder.encode(userDto.getPassword()));
 
@@ -108,6 +109,7 @@ public class UserService {
     public void eliminaUser(int id) {
 		userRepository.deleteById(id);
 	}
+
     public void updatePassword(int userId, String newPassword) {
     	User user = userRepository.findById(userId).orElse(null);
     	if(user != null) {
@@ -116,7 +118,6 @@ public class UserService {
     		userRepository.save(user);
     	}
     }
-
 
 
 	public User getUserById(int id) {
