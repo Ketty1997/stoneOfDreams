@@ -118,4 +118,12 @@ public class UserService {
 		return userRepository.findById(id).orElse(null);
 	}
     
+	public boolean verificaVecchiaPassword(User user, String oldPassword) {
+	    // Recupera la password criptata dal database
+	    String encryptedPassword = user.getPassword();
+	    
+	    // Usa matches() per confrontare la password inserita con quella criptata nel database
+	    return passwordEncoder.pwMaches(oldPassword, encryptedPassword);  // Corretto, confronta direttamente
+	}
+
 }
