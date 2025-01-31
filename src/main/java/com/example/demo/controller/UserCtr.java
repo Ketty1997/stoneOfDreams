@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.User;
 import com.example.demo.services.UserService;
-
+import com.example.demo.util.PasswordEncoder;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -29,6 +29,9 @@ public class UserCtr {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@GetMapping({"","/"})
 	public String userDetails(HttpSession session, Model model) {
 		//controllo se l'utente e' loggato altrimenti lo mando alla pagina login
@@ -60,8 +63,11 @@ public class UserCtr {
 	
 	@PostMapping("updateUser")
 	public String update(Model model, @ModelAttribute("updateU") @Valid UserDto uDto, BindingResult result) {
+
+		System.out.println("sono nel controller update user");
+
 		if (result.hasErrors()) {
-				return "updateUser";
+			return "updateUser";
 	    }
 		//recupero utente dal db per prendere l'immagine attuale
 	    User currentUser = userService.getUserById(uDto.getId());
@@ -81,27 +87,36 @@ public class UserCtr {
 
 	    }
 
-	    // Escludiamo la password dalle modifiche
-	    uDto.setPassword(null);
-	    
+
+		//dobbiamo verificare se la pass inserita è uguale a quella dell'utente nel db quindi cerchiamo l'utente e usiamo la passw per vedere se è uguale
+		User user = userService.getUserById(uDto.getId());
+		
+		String passwConf = uDto.getConfermaPass();
+		System.out.println("la password scritta è "+passwConf);
+		System.out.println("la password scritta è uguale a quella hashata? "+ passwordEncoder.pwMaches(passwConf, user.getPassword()));
+
+		uDto.setPassword(uDto.getConfermaPass());
 
 	    // Gestione della data di nascita
-	    
 	    // Converti la data di nascita da stringa a LocalDate
 	    if (uDto.getFormattedDataNascita() != null && !uDto.getFormattedDataNascita().isEmpty()) {
 	        uDto.setDataNascita(LocalDate.parse(uDto.getFormattedDataNascita()));
-	        }
+		}
 
 	    try {
-	        // Salva l'utente con l'immagine (se nuova), password (se nuova) o data di nascita (se nuova)
-	        userService.saveUser(uDto, storageFileName);
-	        System.out.println("Utente salvato con successo.");
+			
+			if(passwordEncoder.pwMaches(passwConf, user.getPassword())) {
+				
+				// Salva l'utente con l'immagine (se nuova), password (se nuova) o data di nascita (se nuova)
+				userService.saveUser(uDto, storageFileName);
+				System.out.println("Utente salvato con successo.");
+			}
 	    } catch (Exception e) {
 	        result.addError(new FieldError("updateU", "nome", "Errore durante il salvataggio: " + e.getMessage()));
 	        return "updateUser";
 	    }
 
-	    return "success";  // Redirigi alla pagina di successo
+	    return "redirect:/user";  // Redirigi alla pagina di successo
 	}
 	
 	@GetMapping("preChangePassword")

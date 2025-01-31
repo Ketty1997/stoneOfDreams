@@ -79,8 +79,8 @@ public class UserService {
 
 
     public void saveUser(UserDto userDto, String imageFileName) {
-    	 System.out.println("Salvataggio utente: " + userDto);
-    	    System.out.println("Nome immagine salvata: " + imageFileName);
+
+        System.out.println(userDto.getPassword());
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
         User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName, passwordEncoder.encode(userDto.getPassword()));
 

@@ -14,7 +14,6 @@ public class UserDto {
 	@NotEmpty(message = "L'email deve essere presente")
 	private String email;
 	
-    @NotEmpty(message = "Inserisci una password")
 	private String password;
 	
 	private LocalDate dataNascita;
@@ -23,12 +22,14 @@ public class UserDto {
 	
     @NotEmpty(message = "Inserisci il tuo segno zodiacale")
 	private String segnoZodiacale;
-
+	
 	
 	private MultipartFile img;
 	
-	
 	private String oldPassword;
+    @NotEmpty(message = "Inserisci la tua password")
+	private String confermaPass;
+	
 
 
 	public String getOldPassword() {
@@ -108,5 +109,13 @@ public class UserDto {
 
 	public void setFormattedDataNascita(String formattedDataNascita) {
 		this.formattedDataNascita = formattedDataNascita;
+	}
+
+	public String getConfermaPass() {
+		return confermaPass;
+	}
+
+	public void setConfermaPass(String confermaPass) {
+		this.confermaPass = confermaPass;
 	}
 }

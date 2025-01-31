@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Aggiorna Profilo</title>
-</head>
-<body>
+<!doctype html>
+<html lang="en">
+    
+  <head th:insert="~{head :: headContent}" th:with="pageTitle='Home Stones of Dreams'"></head>
+
+  <body>
+    <nav th:insert="~{header :: navbar}"></nav>
+
+
     <h1>Aggiorna il tuo profilo</h1>
     <form th:action="@{/user/updateUser}" th:object="${updateU}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}"/>
@@ -13,6 +15,7 @@
         <br/>
         <label for="email">Email:</label>
         <input type="email" th:field="*{email}" />
+        <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p>
         <br/>
        
     	<label for="dataNascita">Data di nascita:</label>
@@ -21,12 +24,21 @@
         <label for="segnoZodiacale">Segno Zodiacale:</label>
         <input type="text" th:field="*{segnoZodiacale}"/>
         <br/>
-
-       
+        
         <label for="img">Immagine del profilo:</label>
         <input type="file" th:field="*{img}" />
+        <br/>
+        <label for="password">Conferma password:</label>
+        <input type="password" th:field="*{confermaPass}"/>
+        <p th:if="${#fields.hasErrors('confermaPass')}" th:errorclass="text-danger" th:errors="*{confermaPass}"></p>
+
+        
         <br/><br/>
+        
         <button type="submit">Salva Modifiche</button>
     </form>
+
+
+    <footer th:insert="~{footer :: footer-el}">
 </body>
 </html>
