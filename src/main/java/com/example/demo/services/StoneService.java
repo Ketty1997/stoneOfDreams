@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -8,15 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.example.demo.dto.StoneDto;
-import com.example.demo.dto.UserDto;
 import com.example.demo.dto.builder.StoneDtoBuilder;
 import com.example.demo.model.Stone;
 import com.example.demo.repository.StoneRepository;

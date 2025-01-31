@@ -6,19 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.example.demo.dto.StoneDto;
 import com.example.demo.dto.UserDto;
-import com.example.demo.dto.builder.StoneDtoBuilder;
 import com.example.demo.dto.builder.UserDtoBuilder;
-import com.example.demo.model.Stone;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.util.PasswordEncoder;
@@ -106,6 +100,7 @@ public class UserService {
 		
 		return UserDtoBuilder.UserFromEntityToDto(userRepository.findById(id).orElse(new User()));
 	}
+
     public void eliminaUser(int id) {
 		userRepository.deleteById(id);
 	}
@@ -113,8 +108,7 @@ public class UserService {
     public void updatePassword(int userId, String newPassword) {
     	User user = userRepository.findById(userId).orElse(null);
     	if(user != null) {
-    		String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-    		user.setPassword(hashedPassword);
+    		user.setPassword(passwordEncoder.encode(newPassword));
     		userRepository.save(user);
     	}
     }

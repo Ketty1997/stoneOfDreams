@@ -36,27 +36,26 @@ public class SignupController {
 
 
     @PostMapping("/signupProcess")
-    public String signupProcess(@Valid @ModelAttribute UserDto userDto, BindingResult result, HttpSession session) {
-        
+    public String signupProcess(@Valid @ModelAttribute UserDto userDto, BindingResult result, HttpSession session, Model model) {
         
         //uso questo con service al posto di questo appena sopra perché ho impostato li un metodo per il controllo invece di farlo qui
         userService.validateImageFile(userDto, result);
 
         //controlliamo se è presente qualche errore di validazione:
         if(result.hasErrors()) {
-            return "/singup";
+
+            model.addAttribute("error", "Errore nella creazione dell'utente: inserisci tutti i dati correttamente");
+            return "/signup";
         }
 
         //se non abbiamo errori salviamo il file immagine nella cartella tramite il meodo creato nel service
         try {
             String storageFileName = userService.saveImage(userDto.getImg());
             
-
             //salviamo l'elemento nel db
             userService.saveUser(userDto, storageFileName);
 
             return "redirect:formlogin";
-
 
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());

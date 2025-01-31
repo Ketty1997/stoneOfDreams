@@ -16,6 +16,9 @@
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
       
                       <p class="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                      <!--stampiamo l'errore che passiamo a questa pagina tramite model in caso di fallimento del login -->
+                      <p class="text-danger" th:if="${error}" th:text="${error}"></p>
       
                       <form id="signupform" action="/signupProcess" class="mx-1 mx-md-4" th:object="${userDto}" method="POST" enctype="multipart/form-data">
       
@@ -41,7 +44,7 @@
                         <div class="d-flex flex-row align-items-center mb-1">
                           <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4c" class="form-control" th:field="${userDto.password}"/>
+                            <input required type="password" id="form3Example4c" class="form-control" th:field="${userDto.password}"/>
                             <label class="form-label" for="form3Example4c">Password</label>
                             <p th:if="${#fields.hasErrors('password')}" th:errorclass="text-danger" th:errors="${userDto.password}">
                           </div>

@@ -1,33 +1,34 @@
 package com.example.demo.dto;
 
 import java.time.LocalDate;
-
 import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.validation.constraints.NotEmpty;
 
 public class UserDto {
+
 	private int id;
+
+	@NotEmpty(message = "Il nome deve essere presente")
 	private String nome;
 
-   
+	@NotEmpty(message = "L'email deve essere presente")
 	private String email;
 	
-    
+    @NotEmpty(message = "Inserisci una password")
 	private String password;
 	
 	private LocalDate dataNascita;
-	  private String formattedDataNascita;
+	private String formattedDataNascita;
 	
-
+	
+    @NotEmpty(message = "Inserisci il tuo segno zodiacale")
 	private String segnoZodiacale;
 
 	
 	private MultipartFile img;
 	
-	
 
-	
+
 	public UserDto() {}
 	
 	public UserDto(int id) {

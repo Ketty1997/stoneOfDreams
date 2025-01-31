@@ -1,37 +1,15 @@
 package com.example.demo.dto.builder;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.User;
-import com.example.demo.util.PasswordEncoder;
 
 @Component // -> importante che sia annotata con Component per essere gestita da spring
 public class UserDtoBuilder {
 
-	// private static PasswordEncoder passwordEncoder;
-
-	//in questo caso non possiamo fare direttamente @Autowired di PasswordEncoder perché dobbiamo usarlo in un metodo statico e darebbe problemi
-	// Dobbiamo quindi utilizzare un Setter Statico per Iniettare PasswordEncoder e poterlo usare nel metodo statico
-	/*	
-		- Spring inietterà il bean PasswordEncoder una volta nel metodo setPasswordEncoder, che assegna il valore alla variabile statica.
-		- Successivamente, il metodo statico UserFromDtoToEntity potrà accedere alla variabile passwordEncoder.
- 	*/
-	// @Autowired
-	// public void setPasswordEncoder(PasswordEncoder encoder) {
-	// 	UserDtoBuilder.passwordEncoder = encoder;
-	// }
-
 
 	public static User UserFromDtoToEntity (UserDto uDto, String imageFileName, String passw) {
 
-		//test di verifica per vedere se viene inizializzato l'encoder
-		// if (passwordEncoder == null) {
-		// 	throw new IllegalStateException("PasswordEncoder is not initialized!");
-		// }
-		// System.out.println("PasswordEncoder is initialized: " + passwordEncoder.getClass().getName());
-	
 
 		User u = new User();
 		u.setId(uDto.getId());

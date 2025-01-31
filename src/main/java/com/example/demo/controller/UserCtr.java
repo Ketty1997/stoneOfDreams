@@ -47,11 +47,13 @@ public class UserCtr {
 	
 	@GetMapping("preUpdateUser/{id}")
 	public String preUpdate(Model model, @PathVariable int id) {
-		  UserDto userDto = userService.aggiornaUser(id);
-		   // Se dataNascita è non null, la formattiamo come stringa
-		    if (userDto.getDataNascita() != null) {
-		        userDto.setFormattedDataNascita(userDto.getDataNascita().toString()); // Conversione in formato 'yyyy-MM-dd'
-		    }
+
+		UserDto userDto = userService.aggiornaUser(id);
+
+		// Se dataNascita è non null, la formattiamo come stringa
+		if (userDto.getDataNascita() != null) {
+			userDto.setFormattedDataNascita(userDto.getDataNascita().toString()); // Conversione in formato 'yyyy-MM-dd'
+		}
 		model.addAttribute("updateU", userDto);
 		return "updateUser";
 	}
@@ -132,8 +134,9 @@ public class UserCtr {
 	}
   
 	@GetMapping("delete/{id}")
-	public String elimina(@PathVariable int id) {
+	public String elimina(@PathVariable int id, HttpSession session) {
 		userService.eliminaUser(id);
+		session.invalidate();
 		return"success";
 	}
 
