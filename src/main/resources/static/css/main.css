@@ -37,6 +37,10 @@
     cursor: pointer;
 }
 
+#success-message {
+    background-color: green;
+}
+
 @media (min-width: 1400px) {
     .formloginCont{
         max-width: 75vw !important;

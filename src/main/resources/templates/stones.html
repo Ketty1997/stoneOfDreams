@@ -9,6 +9,13 @@
 	<div class="container">
 
 		<a href="/stone/preInsertStone">Inserisci</a>
+	
+		<!-- messaggio che viene stampato solo se viene passato nel model dal controller, che scompare dopo qualche secondo
+		 vedi codice javascript in footer.html-->
+		<div th:if="${successMessage}" id="success-message">
+			<p class="text-white" th:text="${successMessage}"></p>
+		</div>
+
 		<table>
 			<thead>
 				<tr>
