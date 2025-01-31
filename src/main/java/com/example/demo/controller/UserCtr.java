@@ -123,6 +123,13 @@ public class UserCtr {
 		if(currentUser==null) {
 			return "redirect:/formLogin";
 		}
+		
+		//verifica che la vecchia password sia corretta
+		//richiamo il metodo nel service, se il metodo restituisce false a
+		if(!userService.verificaVecchiaPassword(currentUser, password.getOldPassword())) {
+			result.addError(new FieldError("changePasswordForm", "oldPassword", "Vecchia password errata!"));
+	        return "changePasswordForm";
+		}
 		try {
 			userService.updatePassword(currentUser.getId(), password.getPassword());
 			
