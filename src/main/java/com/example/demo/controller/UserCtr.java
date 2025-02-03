@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.User;
@@ -62,9 +63,7 @@ public class UserCtr {
 	}
 	
 	@PostMapping("updateUser")
-	public String update(Model model, @ModelAttribute("updateU") @Valid UserDto uDto, BindingResult result) {
-
-		System.out.println("sono nel controller update user");
+	public String update(Model model, @ModelAttribute("updateU") @Valid UserDto uDto, BindingResult result, RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 			return "updateUser";
@@ -95,8 +94,6 @@ public class UserCtr {
 		System.out.println("la password scritta è "+passwConf);
 		System.out.println("la password scritta è uguale a quella hashata? "+ passwordEncoder.pwMaches(passwConf, user.getPassword()));
 
-		uDto.setPassword(uDto.getConfermaPass());
-
 	    // Gestione della data di nascita
 	    // Converti la data di nascita da stringa a LocalDate
 	    if (uDto.getFormattedDataNascita() != null && !uDto.getFormattedDataNascita().isEmpty()) {
@@ -106,16 +103,23 @@ public class UserCtr {
 	    try {
 			
 			if(passwordEncoder.pwMaches(passwConf, user.getPassword())) {
-				
+
+				uDto.setPassword(uDto.getConfermaPass());
 				// Salva l'utente con l'immagine (se nuova), password (se nuova) o data di nascita (se nuova)
 				userService.saveUser(uDto, storageFileName);
 				System.out.println("Utente salvato con successo.");
+			}else {
+				//se non è uguale genera l'errore aggiungere un'eccezione manuale o un messaggio di errore con FieldError
+				result.addError(new FieldError("updateU", "confermaPass", "La password inserita non è corretta."));
+				return "updateUser"; // Torna alla pagina HTML con l'errore
 			}
 	    } catch (Exception e) {
+			//rimandiamo un errore che viene stampato con un <p th:if="${#fields.hasErrors('confermaPass')}" th:errorclass="text-danger" th:errors="*{confermaPass}"></p>
 	        result.addError(new FieldError("updateU", "nome", "Errore durante il salvataggio: " + e.getMessage()));
 	        return "updateUser";
 	    }
 
+		redirectAttributes.addFlashAttribute("successMessage", "L'utente è stato correttamente aggiornato.");
 	    return "redirect:/user";  // Redirigi alla pagina di successo
 	}
 	

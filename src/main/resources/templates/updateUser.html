@@ -29,6 +29,7 @@
         <input type="file" th:field="*{img}" />
         <br/>
         <label for="password">Conferma password:</label>
+
         <input type="password" th:field="*{confermaPass}"/>
         <p th:if="${#fields.hasErrors('confermaPass')}" th:errorclass="text-danger" th:errors="*{confermaPass}"></p>
 

@@ -7,10 +7,14 @@
   <body>
 
     <nav th:insert="~{header :: navbar}"></nav>
+
     <div class="container">
 
         
         <h1>Il tuo profilo</h1>
+        <div id="success-message" th:if="${successMessage}" >
+            <p class="text-white" th:text="${successMessage}"></p>
+        </div>
         <p><strong>NOME:</strong> <span th:text="${user.nome}"></span></p>
         <p><strong>EMAIL:</strong> <span th:text="${user.email}"></span></p>
         <p><strong>DATA DI NASCITA:</strong> <span th:text="${user.dataNascita}"></span></p>
@@ -21,6 +25,7 @@
         <form th:action="@{/user/preUpdateUser/{id}(id=${user.id})}" method="get">
             <button type="submit">Aggiorna Profilo</button>
         </form>
+
         <form th:action="@{/user/preChangePassword}" method="get">
             <button type="submit">Aggiorna Password</button>
         </form>
