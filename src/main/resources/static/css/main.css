@@ -46,3 +46,11 @@
         max-width: 75vw !important;
     }
 }
+
+.img-fixed {
+        width: 100%;  /* Larghezza al 100% della card */
+        height: 200px; /* Altezza fissa */
+        object-fit: cover; /* Ritaglia e mantiene proporzioni */
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }

@@ -7,7 +7,7 @@
 
     <nav th:insert="~{header :: navbar}"></nav>
 
-	<div class="container mt-5 mb-5">
+	<div class="container mt-5 mb-5 d-flex justify-content-center align-items-center">
 
 		<form th:action="@{/stone/updateStone}" th:object="${updateS}" method="post" enctype="multipart/form-data">
 	
@@ -58,7 +58,7 @@
 				<div class="card-body">
 					<input class="btn text-white btn-lg px-4 me-sm-3 bg-amethyst bottone" type="submit" value="Update"/>
 
-				  <a href="/stone/" class="card-link">Go back</a>
+				  <a href="/stone/" class="card-link" style="text-decoration: none;">Go back</a>
 				</div>
 			</div>
 	
