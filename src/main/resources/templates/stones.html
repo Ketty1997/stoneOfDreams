@@ -9,59 +9,9 @@
 <body>
 
 	<nav th:insert="~{header :: navbar}"></nav>
-	<!-- 
-	<div class="container">
-		<a href="/stone/preInsertStone">Inserisci</a>
 	
-		messaggio che viene stampato solo se viene passato nel model dal controller, che scompare dopo qualche secondo
-		 vedi codice javascript in footer.html
-		<div th:if="${successMessage}" id="success-message">
-			<p class="text-white" th:text="${successMessage}"></p>
-		</div>
-
-		<table>
-			<thead>
-				<tr>
-					<th>Nome</th>
-					<th>Colore</th>
-					<th>Descrizone</th>
-					<th>Elemento</th>
-					<th>Emozione</th>
-					<th>Immagine</th>
-					<th>Tipo</th>
-				<tr>
-			</thead>
-			<tbody>
-				<tr th:each="p : ${listaPietre}">
-					<td th:text="${p.nome}"></td>
-					<td th:text="${p.colore}"></td>
-					<td th:text="${p.descrizione}"></td>
-					<td th:text="${p.elemento}"></td>
-					<td th:text="${p.emozione}"></td>
-					<td>
-						<img th:src="@{/images/} + ${p.imgName}" alt="..." width="100">
-					</td>
-
-					<td th:text="${p.tipo}"></td>
-					<td>
-						<a th:href="@{/stone/delete/{id}(id=${p.id})}"
-							onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')">Elimina</a>
-					</td>
-					<td>
-						<a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}">Aggiorna</a>
-					</td>
-				</tr>
-
-
-
-			</tbody>
-
-
-		</table>
-	</div>
-	 -->
 	 <div class="container">
-		 <div class="d-flex justify-content-end mb-3 mt-4">
+		 <div class="d-flex mb-3 mt-4">
 		 	<a href="/stone/preInsertStone" class="text-end btn btn-success">Inserisci</a>
 		 </div>
 	 	<div th:if="${successMessage}" id="success-message">
@@ -80,11 +30,12 @@
                     <p class="card-text"><strong>Emozione:</strong> <span th:text="${p.emozione}"></span></p>
                     <p class="card-text"><strong>Tipo:</strong> <span th:text="${p.tipo}"></span></p>
                     
-                    <div class="mt-auto d-flex justify-content-center gap-2">
+                    <div class="mt-auto d-flex  gap-2">
 	                    <a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a>
 	                    <a th:href="@{/stone/delete/{id}(id=${p.id})}" 
 	                       onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
-	                       class="btn btn-danger">Elimina</a>
+	                       class="btn btn-danger">Elimina
+						</a>
                 	</div>
 	 			</div>
 	 		</div>
