@@ -5,6 +5,9 @@
     background-color: #5865f2 !important;
 }
 
+.personal-red { background-color: #d84e42; color: white;}
+.personal-red:hover { background-color: rgb(231, 206, 206);; color: #e71401;}
+
 #cover-signup {
     overflow: hidden;
     border-radius: 20px;
@@ -40,6 +43,20 @@
 #success-message {
     background-color: green;
 }
+
+/* user account */
+.userBox.card {
+   border-radius: 15px !important;
+}
+#userBoxImg {
+    width: 200px; height: 200px; overflow: hidden; display: inline-block; border-radius: 15px;
+}
+.btnUdtPass i{
+    color:rgb(219, 168, 0);
+    font-size: 20px;
+}
+.accountButtons a {margin-right: 5px;}
+
 
 @media (min-width: 1400px) {
     .formloginCont{

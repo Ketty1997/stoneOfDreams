@@ -4,38 +4,78 @@
     
   <head th:insert="~{head :: headContent}" th:with="pageTitle='User account'"></head>
 
-  <body>
+  <body class="bg-light">
 
     <nav th:insert="~{header :: navbar}"></nav>
 
-    <div class="container">
+ 	<div class="container mt-5">
 
-        
-        <h1>Il tuo profilo</h1>
-        <div id="success-message" th:if="${successMessage}" >
-            <p class="text-white" th:text="${successMessage}"></p>
-        </div>
-        <p><strong>NOME:</strong> <span th:text="${user.nome}"></span></p>
-        <p><strong>EMAIL:</strong> <span th:text="${user.email}"></span></p>
-        <p><strong>DATA DI NASCITA:</strong> <span th:text="${user.dataNascita}"></span></p>
-        <p><strong>SEGNO ZODIACALE:</strong> <span th:text="${user.segnoZodiacale}"></span></p>
-        <p><strong>IMMAGINE DEL PROFILO:</strong></p>
-        <img width="200" alt="Profilo img" th:src="@{/images/{img}(img=${user.img})}">
-        
-        <form th:action="@{/user/preUpdateUser/{id}(id=${user.id})}" method="get">
-            <button type="submit">Aggiorna Profilo</button>
-        </form>
+ 		<div class="row">
+ 			<div class="col-md-6 offset-md-3">
+ 				<div class="userBox card shadow-lg p-4">
+ 					<h2 class="mb-4"> 
+                        Ehi <b th:text="${user.nome} + ','"></b>
+                        ecco tuo profilo
+                    </h2>
+ 					<div id=success-message th:if="${successMessage}" class="aler alert-success text-center">
+ 						<p class="text-white m-0" th:text="${successMessage}"></p>
+ 					</div>
+ 					 <!-- Sezione con immagine a sinistra e testi a destra -->
+                    <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+                        <!-- Colonna immagine -->
+                        <div class="text-center">
+                            <div id="userBoxImg">
 
-        <form th:action="@{/user/preChangePassword}" method="get">
-            <button type="submit">Aggiorna Password</button>
-        </form>
-        <form th:action="@{/user/delete/{id}(id=${user.id})}" method="get">
-            <button type="submit">Elimina Profilo</button>
-        </form>
-        <a href="/logout">Logout</a>
-    </div>
+                                <a th:href="@{/images/{img}(img=${user.img})}" target="_blank">
 
-	<footer th:insert="~{footer :: footer-el}">
+                                    <span th:if="${gender}">
+
+                                        <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" 
+                                            alt="Profilo img" 
+                                            th:src="${gender == 'uomo' ? '/images/gender/man.jpg' : '/images/gender/girl.jpg'}"
+                                        >
+                                        
+                                    </span>
+
+                                    <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" 
+                                        alt="Profilo img" 
+                                        th:src="@{/images/{img}(img=${user.img})}"
+                                    >
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!-- Colonna testi -->
+                        <div class="text-start">
+                            <p><strong>Nome:</strong> <span th:text="${user.nome}"></span></p>
+                            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                            <p><strong>Password:</strong> <span>********</span>
+                                <a th:href="@{/user/preChangePassword}" type="submit" class="btn btnUdtPass p-0" title="Update password"> 
+                                    <i class="uil uil-edit"></i>
+                                </a>
+                            </p>
+                            <p><strong>Data di Nascita:</strong> <span th:text="${user.dataNascita}"></span></p>
+                            <p><strong>Segno Zodiacale:</strong> <span th:text="${user.segnoZodiacale}"></span></p>
+                        </div>
+                    </div>
+ 					 
+                      
+ 				
+                    <div class="d-flex mt-3 accountButtons">
+
+                        <a th:href="@{/user/preUpdateUser/{id}(id=${user.id})}" class="btn btn-primary">Aggiorna Profilo</a>
+                        <a th:href="@{/user/delete/{id}(id=${user.id})}" type="submit" class="btn personal-red">Elimina Profilo</a>
+						<a href="/logout" class="btn btn-secondary">Logout</a>
+
+                    </div>
+                      
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	
+ 	<footer th:insert="~{footer :: footer-el}"  class="mt-5 text-center text-muted">
     
 	</footer>
 	

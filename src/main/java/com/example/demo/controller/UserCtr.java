@@ -35,17 +35,28 @@ public class UserCtr {
 
 	@GetMapping({"","/"})
 	public String userDetails(HttpSession session, Model model) {
-		//controllo se l'utente e' loggato altrimenti lo mando alla pagina login
-		if(session.getAttribute("user")==null) {
-			return "redirect:/formlogin";
-		}
+	
 		//recupero l'utente dalla sessione
 		User user = userService.getUserFromSession(session);
-		if(user==null) {
-			return "redirect:/formlogin";
+
+		System.out.println("Ultima lettera nome utente: " + user.getNome().charAt(user.getNome().length() -1));
+		System.out.println("immagine utente: " + user.getImg());
+		String gender="";
+		switch (user.getNome().charAt(user.getNome().length() -1)) {
+			case 'a':
+				gender="donna";
+			break;
+			case 'o':
+				gender="uomo";
+			break;
 		}
+
 		//passa le informazioni al modello
 		model.addAttribute("user", user);
+		if (user.getImg() == null && gender.length() >=1) {
+			
+			model.addAttribute("gender", gender);
+		}
 		return "userDetails";
 	}
 	
