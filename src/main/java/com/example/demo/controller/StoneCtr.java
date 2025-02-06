@@ -31,10 +31,11 @@ public class StoneCtr {
 	
 	@GetMapping({"","/"})
 	public String listaPietre(Model model) {
+		
 		List<StoneDto> listaPietre = stoneService.getListaPietre();
 		model.addAttribute("listaPietre", listaPietre);
-		
 		return "stones";
+
 	}
 	
 	@GetMapping("preInsertStone")
