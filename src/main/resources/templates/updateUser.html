@@ -7,39 +7,41 @@
     <nav th:insert="~{header :: navbar}"></nav>
 
 
-    <h1>Aggiorna il tuo profilo</h1>
-    <form th:action="@{/user/updateUser}" th:object="${updateU}" method="post" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{id}"/>
-        <label for="nome">Nome:</label>
-        <input type="text" th:field="*{nome}"/>
-        <br/>
-        <label for="email">Email:</label>
-        <input type="email" th:field="*{email}" />
-        <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p>
-        <br/>
-       
-    	<label for="dataNascita">Data di nascita:</label>
-		<input type="date" th:field="*{formattedDataNascita}" />
-        <br/>
-        <label for="segnoZodiacale">Segno Zodiacale:</label>
-        <input type="text" th:field="*{segnoZodiacale}"/>
-        <br/>
-        
-        <label for="img">Immagine del profilo:</label>
-        <input type="file" th:field="*{img}" />
-        <br/>
-        <label for="password">Conferma password:</label>
+    <h1 class="text-center my-4" >Aggiorna il tuo profilo</h1>
+    <div class="container">
+	    <form th:action="@{/user/updateUser}" th:object="${updateU}" method="post" enctype="multipart/form-data" class="mx-auto col-md-6">
+	        <input type="hidden" th:field="*{id}"/>
+	        <div class="mb-3">
+		        <label for="nome" class="form-label">Nome:</label>
+		        <input type="text" th:field="*{nome}" class="form-control"/>
+	        </div>
+	       	<div class="mb-3">
+		        <label for="email" class="form-label">Email:</label>
+		        <input type="email" th:field="*{email}" class="form-control"/>
+		        <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p>
+	        </div>
+	        <div class="mb-3">
+		    	<label for="dataNascita" class="form-label">Data di nascita:</label>
+				<input type="date" th:field="*{formattedDataNascita}" class="form-control"/>
+	        </div>
+	        <div class="mb-3">
+		        <label for="segnoZodiacale" class="form-label">Segno Zodiacale:</label>
+		        <input type="text" th:field="*{segnoZodiacale}" class="form-control"/>
+	        </div>
+	        <div class="mb-3">
+		        <label for="img" class="form-label">Immagine del profilo:</label>
+		        <input type="file" th:field="*{img}" class="form-control"/>
+	        </div>
+	        <div class="mb-3">
+		        <label for="password" class="form-label">Conferma password:</label>
+				<input type="password" th:field="*{confermaPass}" class="form-control"/>
+		        <p th:if="${#fields.hasErrors('confermaPass')}" th:errorclass="text-danger" th:errors="*{confermaPass}"></p>
+			</div>
+	        
+	        <button type="submit" class="btn btn-primary w-100">Salva Modifiche</button>
+	    </form>
+	</div>
 
-        <input type="password" th:field="*{confermaPass}"/>
-        <p th:if="${#fields.hasErrors('confermaPass')}" th:errorclass="text-danger" th:errors="*{confermaPass}"></p>
-
-        
-        <br/><br/>
-        
-        <button type="submit">Salva Modifiche</button>
-    </form>
-
-
-    <footer th:insert="~{footer :: footer-el}">
+    <footer th:insert="~{footer :: footer-el}" class="mt-5 text-center text-muted">
 </body>
 </html>
