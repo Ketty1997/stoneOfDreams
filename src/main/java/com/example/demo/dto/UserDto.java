@@ -1,9 +1,12 @@
 package com.example.demo.dto;
 
 import java.time.LocalDate;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.NotEmpty;
 
+// @Component
 public class UserDto {
 
 	private int id;

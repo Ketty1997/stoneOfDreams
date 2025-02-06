@@ -14,6 +14,11 @@
 		 <!-- <div class="d-flex mb-3 mt-4">
 		 	<a href="/stone/preInsertStone" class="text-end btn btn-success">Inserisci</a>
 		 </div> -->
+		 <div class="d-flex mb-3 mt-4">
+			<h2>Pietre personali di <b th:text="${utente}"></b></h2>
+		 </div>
+
+
 	 	<div th:if="${successMessage}" id="success-message">
 	 		<p class="text-white" th:text="${successMessage}"></p>
 	 	
@@ -30,13 +35,13 @@
                     <p class="card-text"><strong>Emozione:</strong> <span th:text="${p.emozione}"></span></p>
                     <p class="card-text"><strong>Tipo:</strong> <span th:text="${p.tipo}"></span></p>
                     
-                    <!-- <div class="mt-auto d-flex  gap-2">
-	                    <a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a>
-	                    <a th:href="@{/stone/delete/{id}(id=${p.id})}" 
+                    <div class="mt-auto d-flex  gap-2">
+	                    <!-- <a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a> -->
+	                    <a th:href="@{/userStones/delete(id=${p.id})}" 
 	                       onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
-	                       class="btn btn-danger">Elimina
+	                       class="btn btn-danger">Elimina dalla collezione
 						</a>
-                	</div> -->
+                	</div>
 	 			</div>
 	 		</div>
 	 	</div>

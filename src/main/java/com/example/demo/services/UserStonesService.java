@@ -21,5 +21,18 @@ public class UserStonesService {
         List<Stone> userStones  = userStoneRepository.findStonesByUserId(idUser);
         return userStones;
     } 
+
+    public void deleteUserStone(int id) {
+
+        
+        try {
+            
+            userStoneRepository.deleteByStoneId(id);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
     
 }
