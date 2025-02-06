@@ -71,3 +71,15 @@
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
     }
+.delete-icon {
+    bottom: 10px;   
+    right: 10px;   
+    font-size: 20px; 
+    color: white;  
+    padding: 8px;   
+    text-decoration: none; 
+}
+
+.delete-icon:hover {
+    color: rgba(255, 0, 0, 0.8);
+}
