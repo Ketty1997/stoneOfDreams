@@ -58,7 +58,7 @@ public class UserStonesCtr {
     
 
     @GetMapping("/addToColl")
-    public String addToCollection(@RequestParam int id, Model model, HttpSession session) {
+    public String addToCollection(@RequestParam int stoneid,@RequestParam String nota, HttpSession session) {
 
         User utente = userService.getUserFromSession(session);
 
@@ -67,12 +67,12 @@ public class UserStonesCtr {
 
         //per data attuale
         LocalDate data =LocalDate.now();
-        DateTimeFormatter formattazione = DateTimeFormatter.ofPattern("yyyy.MM-dd");
-        String dataFormattata = data.format(formattazione);
+        // DateTimeFormatter formattazione = DateTimeFormatter.ofPattern("yyyy.MM-dd");
+        // String dataFormattata = data.format(formattazione);
     
+        userStonesService.addStoneToCollection(idUtente, stoneid, nota, data);
 
-
-        return "/userStones";
+        return "redirect:/userStones";
     }
     
 

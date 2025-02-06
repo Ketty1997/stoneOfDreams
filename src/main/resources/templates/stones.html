@@ -11,9 +11,10 @@
 	<nav th:insert="~{header :: navbar}"></nav>
 	
 	 <div class="container">
-		 <div class="d-flex mb-3 mt-4">
+		<h2>Database di tutte le pietre preziose e non preziose :D</h2>
+		<div class="d-flex mb-3 mt-4">
 		 	<a href="/stone/preInsertStone" class="text-end btn btn-success">Inserisci</a>
-		 </div>
+		</div>
 	 	<div th:if="${successMessage}" id="success-message">
 	 		<p class="text-white" th:text="${successMessage}"></p>
 	 	
@@ -53,17 +54,19 @@
 									</div>
 
 									<div class="modal-body">
+										<form action="/userStones/addToColl" method="get">
 
-										<textarea class="custom-textarea" placeholder="Aggiungi una nota"></textarea>
+											<input type="hidden" name="stoneid" th:value="${p.id}" >
+											<textarea class="custom-textarea" name="nota" placeholder="Aggiungi una nota"></textarea>
 
-
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+												<button type="submit" class="btn btn-success">Aggiungi alla collezione</button>
+												<!-- <a th:href="@{/userStones/addToColl(id=${p.id})}" class="btn btn-success">Aggiungi alla collezione</a> -->
+											</div>
+										</form>
 									</div>
 
-
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-										<a th:href="@{/userStones/addToColl(id=${p.id})}" class="btn btn-success">Aggiungi alla collezione</a>
-									</div>
 								</div>
 							</div>	
 						</div>
