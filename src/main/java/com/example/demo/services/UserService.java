@@ -100,6 +100,10 @@ public class UserService {
 		
 		return UserDtoBuilder.UserFromEntityToDto(userRepository.findById(id).orElse(new User()));
 	}
+    
+    public void aggiornaUserSenzaImg(User user) {
+    	userRepository.save(user);
+    }
 
     public void eliminaUser(int id) {
 		userRepository.deleteById(id);
