@@ -56,7 +56,16 @@
     font-size: 20px;
 }
 .accountButtons a {margin-right: 5px;}
-
+.cardButCont {    height: 40px; align-items: center;}
+.addCollectionBut {font-size: 30px;}
+.custom-textarea {
+    width: 100%;
+    min-height: 100px; /* Altezza minima */
+    resize: vertical;   /* Permette di ridimensionare solo in verticale */
+    padding: 10px;
+    font-size: 16px;
+  }
+  
 
 @media (min-width: 1400px) {
     .formloginCont{

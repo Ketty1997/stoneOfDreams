@@ -28,6 +28,7 @@
                   <img id="profiloImg" onclick="window.location.href='/user'" style="width: 100%; height: 100%; object-fit: cover;" th:src="@{'/images/' + ${session.imgUser}}" alt="immagine di profilo">
                 </div>
                 <a class="dropdown-item" href="/user">My Account</a>
+                <a class="dropdown-item" href="/userStones">Le mie pietre</a>
               </li>
               <li><a class="dropdown-item text-danger" href="/logout">Log out</a></li>
             </ul>

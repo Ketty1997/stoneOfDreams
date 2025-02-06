@@ -1,12 +1,16 @@
 package com.example.demo.dto.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.demo.dto.StoneDto;
 import com.example.demo.dto.UserStoneDto;
 import com.example.demo.model.Stone;
 import com.example.demo.model.User;
 import com.example.demo.model.UserStone;
 
 public class UserStoneDtoBuilder {
-	public static UserStone UserStoneFromDtoToEntity(UserStoneDto uDto) {
+	public static UserStone userStoneFromDtoToEntity(UserStoneDto uDto) {
 		UserStone u = new UserStone();
 		u.setId(uDto.getId());
 		u.setUser(new User(uDto.getUserId()));
@@ -15,8 +19,16 @@ public class UserStoneDtoBuilder {
 		u.setNote(uDto.getNote());
 		return u;
 	}
+
+	public static List<UserStoneDto> userStonefromEntityToDto(List<UserStone> userStones){
+		List<UserStoneDto> userStoneDtos = new ArrayList<>();
+		for (UserStone pietra : userStones) {
+			userStoneDtos.add(userStoneFromEntityToDto(pietra));
+		}
+		return userStoneDtos;
+	}
 	
-	public static UserStoneDto UserStoneFromEntityToDto(UserStone u) {
+	public static UserStoneDto userStoneFromEntityToDto(UserStone u) {
 		UserStoneDto uDto = new UserStoneDto();
 		uDto.setId(u.getId());
 		uDto.setUserId(u.getUser().getId());
