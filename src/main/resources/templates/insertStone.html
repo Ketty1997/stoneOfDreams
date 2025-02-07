@@ -28,37 +28,42 @@
 					ai campi dell'oggetto productDto durante la deserializzazione della richiesta. Quindi, quando la richiesta viene 
 					elaborata dal controller, productDto conterrà i valori inseriti nel modulo -->
 
-					<!-- campi restanti da fare come questo: -->
-					<div class="d-flex flex-row align-items-center mb-1">
-						<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-						<div data-mdb-input-init class="form-outline flex-fill mb-0">
-							<input type="text" id="nome" class="form-control" th:field="${stoneForm.nome}"/>
-							<label class="form-label" for="nome">Nome</label>
-							<!-- questo è un if che dice che in caso ci fosse un errore quando si invia la form al controller, il messaggio di errore viene stampato qui
+
+					<div class="mb-3">
+						<label for="nome" class="form-label">Nome:</label>
+						<input type="text" th:field="${stoneForm.nome}" class="form-control"/>
+						<!-- questo è un if che dice che in caso ci fosse un errore quando si invia la form al controller, il messaggio di errore viene stampato qui
 							con la classe boolean text-danger che rende il testo del messaggio rosso -->
-							<p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="${stoneForm.nome}">
-						</div>
+						<p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="${stoneForm.nome}">
+					</div>
+					
+					<div class="mb-3">
+						<label for="tipo" class="form-label">Tipo:</label>
+						<input type="text" th:field="${stoneForm.tipo}" class="form-control"/>
+						<!-- <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p> -->
+					</div>
+					<div class="mb-3">
+						<label for="colore" class="form-label">Colore:</label>
+						<input type="text" th:field="${stoneForm.colore}" class="form-control"/>
+						<!-- <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p> -->
+					</div>
+					<div class="mb-3">
+						<label for="elemento" class="form-label">Elemento:</label>
+						<input type="text" th:field="${stoneForm.elemento}" class="form-control"/>
+						<!-- <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p> -->
+					</div>
+					<div class="mb-3">
+						<label for="descrizione" class="form-label">Descrizione:</label>
+						<input type="text" th:field="${stoneForm.descrizione}" class="form-control"/>
+						<p th:if="${#fields.hasErrors('descrizione')}" th:errorclass="text-danger" th:errors="${stoneForm.descrizione}"></p>
+					</div>
+					<div class="mb-3">
+						<label for="emozione" class="form-label">Emozione:</label>
+						<input type="text" th:field="${stoneForm.emozione}" class="form-control"/>
+						<!-- <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p> -->
 					</div>
 
-
-					<br><br>
-					<label for="tipo">Tipo</label>
-					<input type="text" th:field="*{tipo}"/>
-					<br><br>
-					<label for="colore">Colore</label>
-					<input type="text" th:field="*{colore}"/>
-					<br><br>
-					<label for="elemento">Elemento</label>
-					<input type="text" th:field="*{elemento}"/>
-					<br><br>
-					<label for="descrizione">Descrizione</label>
-					<input type="text" th:field="*{descrizione}"/>
-					<br><br>
-					<label for="emozione">Emozione</label>
-					<input type="text" th:field="*{emozione}"/>
-					<br><br>
-
-					<div class="row mb-3">
+					<div class="mb-3">
 						<label class="col-sm-4 col-form-label">Image</label>
 						<div class="col-sm-8">
 							<input class="form-control" type="file" th:field="${stoneForm.immagineFile}">
@@ -66,7 +71,7 @@
 						</div>
 					</div>
 					
-					<input class="bottone" type="submit" value="Inserisci"/>
+					<input class="btn btn-success" type="submit" value="Inserisci"/>
 				
 				</form>
 			</div>
