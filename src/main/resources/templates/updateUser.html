@@ -34,7 +34,7 @@
 	        </div>
 	        <div class="mb-3">
 		        <label for="password" class="form-label">Conferma password:</label>
-				<input type="password" th:field="*{confermaPass}" class="form-control"/>
+				<input required type="password" th:field="*{confermaPass}" class="form-control"/>
 		        <p th:if="${#fields.hasErrors('confermaPass')}" th:errorclass="text-danger" th:errors="*{confermaPass}"></p>
 			</div>
 	        

@@ -30,7 +30,6 @@ public class UserDto {
 	private MultipartFile img;
 	
 	private String oldPassword;
-    @NotEmpty(message = "Inserisci la tua password")
 	private String confermaPass;
 	
 
