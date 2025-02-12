@@ -44,6 +44,8 @@ public class SignupController {
         //controlliamo se è presente qualche errore di validazione:
         if(result.hasErrors()) {
 
+            System.out.println(result.getFieldError());
+
             model.addAttribute("error", "Errore nella creazione dell'utente: inserisci tutti i dati correttamente");
             return "/signup";
         }
