@@ -168,20 +168,20 @@ public class UserCtr {
 			result.addError(new FieldError("changePasswordFrom", "error", "errore durante l'operazione"));
 			return "changePasswordForm";
 		}
-		return "success";
+		return "redirect:/user";
 	}
 	@GetMapping("deleteImg")
 	public String deleteImg(@RequestParam("id") int id) {
 		User currentUser = userService.getUserById(id);
 		currentUser.setImg(null);
 		userService.aggiornaUserSenzaImg(currentUser);
-		return "success";
+		return "redirect:/user";
 	}
 	@GetMapping("delete/{id}")
 	public String elimina(@PathVariable int id, HttpSession session) {
 		userService.eliminaUser(id);
 		session.invalidate();
-		return"success";
+		return "redirect:/formLogin";
 	}
 
 }
