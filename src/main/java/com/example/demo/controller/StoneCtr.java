@@ -100,10 +100,12 @@ public class StoneCtr {
 		if (result.hasErrors()) {
 	        return "updateStone";
 	    }
+		//recupero la pieta esistente dal db
+		StoneDto pietraEsistente = stoneService.aggiornaPietra(sDto.getId());
 
 	    // 2. Inizializza una variabile per il nome del file immagine.
 	    //    Questo sarà il nome dell'immagine salvata nella directory.
-	    String storageFileName = null;
+	    String storageFileName = pietraEsistente.getImgName();
 
 	    // 3. Verifica se il campo immagine nel form non è vuoto (l'utente ha caricato un file).
 	    if (!sDto.getImmagineFile().isEmpty()) {
