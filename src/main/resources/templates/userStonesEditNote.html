@@ -5,7 +5,7 @@
 <body>
     <nav th:insert="~{header :: navbar}"></nav>
     <div class="container">
-        <h2>Modifica Nota per <span th:text="${pietra.stone.nome}"></span></h2>
+        <h2>Modifica Nota per <span th:text="${pietra.note}"></span></h2>
         <form th:action="@{/userStones/updateNote(id=${pietra.id})}" method="post">
         
         	<div class="form-group">

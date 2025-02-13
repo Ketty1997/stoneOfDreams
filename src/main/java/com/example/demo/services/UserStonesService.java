@@ -22,27 +22,22 @@ public class UserStonesService {
     private UserStoneRepository userStoneRepository;
 
 
-    public Map<Stone, String> listaPietreUtente(Integer idUser) {
-        // --- vecchia implementazione senza nota ---
-            // UserStoneDtoBuilder.userStonefromEntityToDto(userStoneRepository.findAll());
-            // List<Stone> userStones  = userStoneRepository.findStonesByUserId(idUser);
-        
-            // List<UserStone> note = userStoneRepository.findAll();
-        // -----
+    public Map<Stone, UserStone> listaPietreUtente(Integer idUser) {
 
-        Map<Stone, String> stonesUserMap = new HashMap<>();
+        Map<Stone, UserStone> stonesUserMap = new HashMap<>();
 
         List<Stone> userStones  = userStoneRepository.findStonesByUserId(idUser);
         int sizeMap = userStones.size();
        
-        List<UserStone> note = userStoneRepository.findAll();
+        List<UserStone> UserStoneTab = userStoneRepository.findAll();
 
 
         for (int i = 0; i < sizeMap; i++) {
-            System.out.println(userStones.get(i).getNome());
-            System.out.println(note.get(i).getNote());
+            // System.out.println(userStones.get(i).getNome());
+            // System.out.println(UserStoneTab.get(i).getNote());
+            // System.out.println(UserStoneTab.get(i).getId());
 
-            stonesUserMap.put(userStones.get(i), note.get(i).getNote());
+            stonesUserMap.put(userStones.get(i), UserStoneTab.get(i));
         }
 
         // prova di stampa elementi
