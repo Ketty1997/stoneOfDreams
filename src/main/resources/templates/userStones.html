@@ -47,7 +47,12 @@
 					<p class="card-text"><strong>Emozione:</strong> <span th:text="${pietra.key.emozione}"></span></p>
 					<p class="card-text"><strong>Tipo:</strong> <span th:text="${pietra.key.tipo}"></span></p>
 					
-					<p class="card-text"><strong>Mia Nota:</strong> <span th:text="${pietra.value}"></span></p>
+					<p class="card-text"><strong>Mia Nota:</strong> <span th:text="${pietra.value}"></span>
+					 <!-- Icona per modificare la nota -->
+	            		<a th:href="@{/userStones/editNote(id=${pietra.key.id})}" class="btn btn-warning btn-sm ml-2">
+	                	<i class="fas fa-edit"></i> Modifica
+	            		</a>
+	            	</p>
 
 				   <div class="mt-auto d-flex  gap-2">
 					   <!-- <a th:href="@{/stone/preUpdateStone/{id}(id=${pietra.key.id})}" class="btn btn-warning">Aggiorna</a>  -->

@@ -68,6 +68,10 @@ public class StoneCtr {
 
         //se non abbiamo errori salviamo il file immagine nella cartella tramite il metodo creato nel service
         try {
+        	if(stoneService.isStoneDuplicate(sDto.getNome())) {
+        		result.addError(new FieldError("stoneFrom","nome","La pietra con questo nome esiste"));
+        		return "insertStone";
+        	};
 			//creo una variabile che contiene il file del nome dell'immagine e lo uso anche per salvarla nella cartella con il metodo nel service 
             String storageFileName = stoneService.saveImage(sDto.getImmagineFile());
 

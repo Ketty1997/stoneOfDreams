@@ -129,5 +129,7 @@ public class UserService {
 	    // Usa matches() per confrontare la password inserita con quella criptata nel database
 	    return passwordEncoder.pwMaches(oldPassword, encryptedPassword);  // Corretto, confronta direttamente
 	}
+	
+	
 
 }

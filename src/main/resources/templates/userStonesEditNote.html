@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head th:insert="~{head :: headContent}" th:with="pageTitle='Modifica Nota Pietra'">
+</head>
+<body>
+    <nav th:insert="~{header :: navbar}"></nav>
+    <div class="container">
+        <h2>Modifica Nota per <span th:text="${pietra.stone.nome}"></span></h2>
+        <form th:action="@{/userStones/updateNote(id=${pietra.id})}" method="post">
+        
+        	<div class="form-group">
+                <label for="nota">Nota Personale</label>
+                <textarea id="nota" name="nota" class="form-control" rows="3" th:text="${pietra.note}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">Salva Modifica</button>
+        </form>
+    </div>
+    <footer th:insert="~{footer :: footer-el}"></footer>
+</body>
+</html>

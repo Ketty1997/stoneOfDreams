@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,4 +80,18 @@ public class UserStonesService {
 
     }
     
+    public UserStone getUserStoneById(int id) {
+        Optional<UserStone> userStone = userStoneRepository.findById(id);
+        if (userStone.isPresent()) {
+            return userStone.get();
+        } else {
+            System.out.println("Non è stata trovata nessuna pietra con ID: " + id);  // Aggiungi un log
+            throw new RuntimeException("Pietra con ID " + id + " non trovata");
+        }
+    }
+
+    public void updateUserStone(UserStone us) {
+    	 System.out.println("Salvando l'oggetto UserStone con ID: " + us.getId() + " e nuova nota: " + us.getNote());
+    	userStoneRepository.save(us);
+    }
 }

@@ -94,6 +94,9 @@ public class StoneService {
             result.addError(new FieldError("stoneForm", "immagineFile", "the image file is required"));
         }
     }
-
+  //metodo per vedere se una pietra e' duplicata
+  	public boolean isStoneDuplicate(String nome) {
+  		return stoneRepo.findByNome(nome) != null;
+  	}
 
 }
