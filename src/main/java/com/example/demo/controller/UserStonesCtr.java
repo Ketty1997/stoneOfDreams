@@ -68,6 +68,11 @@ public class UserStonesCtr {
         // DateTimeFormatter formattazione = DateTimeFormatter.ofPattern("yyyy.MM-dd");
         // String dataFormattata = data.format(formattazione);
     
+        //controllo se la pietra e' gia presente nella collezione dell'utente
+        if(userStonesService.existingInCollection(idUtente, stoneid)) {
+        	session.setAttribute("errorMessage", "pietra presente nella tua collezione");
+        	return "redirect:/userStones";
+        }
         userStonesService.addStoneToCollection(idUtente, stoneid, nota, data);
 
         return "redirect:/userStones";

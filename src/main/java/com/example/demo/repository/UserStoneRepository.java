@@ -41,5 +41,8 @@ public interface UserStoneRepository extends JpaRepository <UserStone, Integer> 
     @Query(value = "DELETE FROM user_stone WHERE user_stone.id_stone = :id", nativeQuery = true)
     void deleteByStoneId(@Param("id")int id);
 
-
+    boolean existsByUserIdAndStoneId(int userId, int stoneId);
+    
+    @Query("SELECT us.stone.id FROM UserStone us WHERE us.user.id = :userId")
+    List<Integer> findStoneIdsByUserId(@Param("userId") int userId);
 }

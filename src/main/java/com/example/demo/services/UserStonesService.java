@@ -80,13 +80,18 @@ public class UserStonesService {
         if (userStone.isPresent()) {
             return userStone.get();
         } else {
-            System.out.println("Non è stata trovata nessuna pietra con ID: " + id);  // Aggiungi un log
             throw new RuntimeException("Pietra con ID " + id + " non trovata");
         }
     }
 
     public void updateUserStone(UserStone us) {
-    	 System.out.println("Salvando l'oggetto UserStone con ID: " + us.getId() + " e nuova nota: " + us.getNote());
     	userStoneRepository.save(us);
+    }
+    
+    public boolean existingInCollection(int userId, int stoneId) {
+    	return userStoneRepository.existsByUserIdAndStoneId(userId, stoneId);
+    }
+    public List<Integer> getUserStoneIds(int userId) {
+        return userStoneRepository.findStoneIdsByUserId(userId);
     }
 }

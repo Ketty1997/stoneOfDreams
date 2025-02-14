@@ -37,8 +37,14 @@
 							onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
 							class="btn btn-danger">Elimina
 						</a>
-
-
+					</div>
+			    	
+			    	<!-- Controlla se la pietra è già nella collezione -->
+				    <div th:if="${#lists.contains(pietreUtente, p.id)}">
+				        <span class="text-success">
+				            <i class="uil uil-check-circle"></i> Già nella tua collezione
+				        </span>
+				    </div>
 						<!-- MODALE AGGIUNTA alle personali-->
 						<a data-bs-toggle="modal" th:data-bs-target="'#modal' + ${p.id}" class=""><i class="uil uil-brightness-plus addCollectionBut text-success" title="aggiungi alla collezione"></i></a>
 						
