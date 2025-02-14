@@ -30,6 +30,13 @@
                     <p class="card-text"><strong>Elemento:</strong> <span th:text="${p.elemento}"></span></p>
                     <p class="card-text"><strong>Emozione:</strong> <span th:text="${p.emozione}"></span></p>
                     <p class="card-text"><strong>Tipo:</strong> <span th:text="${p.tipo}"></span></p>
+
+					<!-- Controlla se la pietra è già nella collezione -->
+					<div th:if="${#lists.contains(pietreUtente, p.id)}">
+						<span class="text-success">
+							<i class="uil uil-check-circle"></i> Già nella tua collezione
+						</span>
+					</div>
                     
                     <div class="cardButCont mt-auto d-flex  gap-2">
 	                    <a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a>
@@ -37,14 +44,8 @@
 							onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
 							class="btn btn-danger">Elimina
 						</a>
-					</div>
+
 			    	
-			    	<!-- Controlla se la pietra è già nella collezione -->
-				    <div th:if="${#lists.contains(pietreUtente, p.id)}">
-				        <span class="text-success">
-				            <i class="uil uil-check-circle"></i> Già nella tua collezione
-				        </span>
-				    </div>
 						<!-- MODALE AGGIUNTA alle personali-->
 						<a data-bs-toggle="modal" th:data-bs-target="'#modal' + ${p.id}" class=""><i class="uil uil-brightness-plus addCollectionBut text-success" title="aggiungi alla collezione"></i></a>
 						
