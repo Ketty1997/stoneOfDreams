@@ -53,6 +53,9 @@ public class UserService {
         -StandardCopyOption.REPLACE_EXISTING: Questa opzione specifica che, se un file esiste già nella destinazione con lo stesso nome, esso verrà sovrascritto.*/
         
         String userImageName = image.getOriginalFilename();
+        
+        // Normalizza il nome del file per evitare caratteri speciali
+        String normalizedFileName = userImageName.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
 
         try {
             String uploadDir = "src/main/resources/static/images/";
@@ -74,7 +77,7 @@ public class UserService {
             System.out.println("errore-> " + e.getMessage());
         }
 
-        return userImageName;
+        return normalizedFileName;
     }
 
 

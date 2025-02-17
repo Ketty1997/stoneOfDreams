@@ -47,6 +47,9 @@ public class StoneService {
         -StandardCopyOption.REPLACE_EXISTING: Questa opzione specifica che, se un file esiste già nella destinazione con lo stesso nome, esso verrà sovrascritto.*/
         
         String stoneImageName = image.getOriginalFilename();
+        
+     // Normalizza il nome del file per evitare caratteri speciali
+        String normalizedFileName = stoneImageName.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
 
         try {
             String uploadDir = "src/main/resources/static/images/";
@@ -68,7 +71,7 @@ public class StoneService {
             System.out.println("errore-> " + e.getMessage());
         }
 
-        return stoneImageName;
+        return normalizedFileName;
     }
 
 
