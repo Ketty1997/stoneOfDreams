@@ -44,9 +44,16 @@
 							onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
 							class="btn btn-danger">Elimina
 						</a>
-
+					
+					<!-- th block non genera alcun tag html, ma permette di applicare condizioni senza aggiungere elementi indesiderati al Dom
+					il blocco viene eseguiti solo se la pietra(id) non e' nella lista -->
+					<th:block th:if="${!#lists.contains(pietreUtente, p.id)}">
+   					 	<a data-bs-toggle="modal" th:data-bs-target="'#modal' + ${p.id}" class="">
+        					<i class="uil uil-brightness-plus addCollectionBut text-success" title="aggiungi alla collezione"></i>
+    					</a>
+					</th:block>
 			    	
-						<!-- MODALE AGGIUNTA alle personali-->
+						<!-- MODALE AGGIUNTA alle personali
 						<a data-bs-toggle="modal" th:data-bs-target="'#modal' + ${p.id}" class=""><i class="uil uil-brightness-plus addCollectionBut text-success" title="aggiungi alla collezione"></i></a>
 						
 						<!-- Modal -->

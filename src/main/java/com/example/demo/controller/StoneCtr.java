@@ -42,6 +42,9 @@ public class StoneCtr {
 	public String listaPietre(Model model, HttpSession session) {
 		User utente = userService.getUserFromSession(session);
 		List<StoneDto> listaPietre = stoneService.getListaPietre();
+		
+		//Creo una lista di pietre utente contenente gli id delle pietre che ha l'utente
+		//la metto qui perche io voglio sapere se una pietra e' gia stata aggiunta alla collezione MENTRE VISUALIZZIAMO TUTTE LE PIETRE
 		List<Integer> pietreUtente = userStonesService.getUserStoneIds(utente.getId());
 		if (pietreUtente == null) {
 		    pietreUtente = new ArrayList<>();
