@@ -86,7 +86,11 @@ public class UserService {
         System.out.println(userDto.getPassword());
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
         User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName, passwordEncoder.encode(userDto.getPassword()));
-
+        //assegno un ruolo di default all'user
+        insertUser.setRuolo("USER");
+        if(userDto.getRuolo() != null && userDto.getRuolo().equalsIgnoreCase("ADMIN")) {
+        	insertUser.setRuolo("ADMIN");
+        }
         userRepository.save(insertUser);
     }
 

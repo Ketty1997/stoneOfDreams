@@ -39,12 +39,12 @@
 					</div>
                     
                     <div class="cardButCont mt-auto d-flex  gap-2">
-	                    <a th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a>
-	                    <a th:href="@{/stone/delete/{id}(id=${p.id})}" 
-							onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
-							class="btn btn-danger">Elimina
-						</a>
-					
+	                    	<!-- Pulsanti visibili solo per amministratori -->
+				    <a th:if="${session.ruolo == 'ADMIN'}" th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a>
+				    <a th:if="${session.ruolo == 'ADMIN'}" th:href="@{/stone/delete/{id}(id=${p.id})}" 
+				       onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
+				       class="btn btn-danger">Elimina</a>
+									
 					<!-- th block non genera alcun tag html, ma permette di applicare condizioni senza aggiungere elementi indesiderati al Dom
 					il blocco viene eseguiti solo se la pietra(id) non e' nella lista -->
 					<th:block th:if="${!#lists.contains(pietreUtente, p.id)}">

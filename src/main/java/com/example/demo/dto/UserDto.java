@@ -31,8 +31,16 @@ public class UserDto {
 	
 	private String oldPassword;
 	private String confermaPass;
-	
+	private String ruolo;
 
+
+	public String getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
 
 	public String getOldPassword() {
 		return oldPassword;
