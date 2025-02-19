@@ -56,8 +56,6 @@ public class HomeController {
         //uso il metodo che ho creato in UserRepository.java
         User findUser = userRepository.findUserByEmail(email);
 
-        // System.err.println("cerca user -> " + findUser);
-     
 
         if(findUser != null && passwordEncoder.pwMaches(passw, findUser.getPassword())) {
             session.setAttribute("user", findUser.getId());

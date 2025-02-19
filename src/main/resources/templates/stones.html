@@ -13,7 +13,7 @@
 	 <div class="container">
 		<h2>Database di tutte le pietre preziose e non preziose :D</h2>
 		<div class="d-flex mb-3 mt-4">
-		 	<a href="/stone/preInsertStone" class="text-end btn btn-success">Inserisci</a>
+		 	<a th:if="${session.ruolo == 'ADMIN'}" href="/stone/preInsertStone" class="text-end btn btn-success">Inserisci</a>
 		</div>
 	 	<div th:if="${successMessage}" id="success-message">
 	 		<p class="text-white" th:text="${successMessage}"></p>
@@ -39,11 +39,12 @@
 					</div>
                     
                     <div class="cardButCont mt-auto d-flex  gap-2">
-	                    	<!-- Pulsanti visibili solo per amministratori -->
+	                <!-- Pulsanti visibili solo per amministratori -->
 				    <a th:if="${session.ruolo == 'ADMIN'}" th:href="@{/stone/preUpdateStone/{id}(id=${p.id})}" class="btn btn-warning">Aggiorna</a>
 				    <a th:if="${session.ruolo == 'ADMIN'}" th:href="@{/stone/delete/{id}(id=${p.id})}" 
 				       onclick="return confirm('Sei sicuro di voler eliminare questa pietra?')" 
-				       class="btn btn-danger">Elimina</a>
+				       class="btn btn-danger">Elimina
+					</a>
 									
 					<!-- th block non genera alcun tag html, ma permette di applicare condizioni senza aggiungere elementi indesiderati al Dom
 					il blocco viene eseguiti solo se la pietra(id) non e' nella lista -->
