@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Stone;
@@ -67,11 +68,37 @@ public class UserStonesCtr {
         // DateTimeFormatter formattazione = DateTimeFormatter.ofPattern("yyyy.MM-dd");
         // String dataFormattata = data.format(formattazione);
     
+        //controllo se la pietra e' gia presente nella collezione dell'utente
+        if(userStonesService.existingInCollection(idUtente, stoneid)) {
+        	session.setAttribute("errorMessage", "pietra presente nella tua collezione");
+        	return "redirect:/userStones";
+        }
         userStonesService.addStoneToCollection(idUtente, stoneid, nota, data);
 
         return "redirect:/userStones";
     }
     
+    @GetMapping("/editNote")
+    public String editNote(@RequestParam int id, Model model) {
+    	//recupero la nota e la pietra
+    	
+    	UserStone userStone =userStonesService.getUserStoneById(id);
+    	model.addAttribute("pietra", userStone);
+    	return "userStonesEditNote";
+    }
+    @PostMapping("/updateNote")
+    public String updateNote(@RequestParam("id") int id, @RequestParam("nota") String nota){
+    	 System.out.println("Nota ricevuta per l'ID " + id + ": " + nota);
+    	//recupero pietra
+    	UserStone userStone = userStonesService.getUserStoneById(id);
+    	//aggiorno nota
+    	userStone.setNote(nota);
+    	//salvo modifice
+    	userStonesService.updateUserStone(userStone);
+    	
+    	return "redirect:/userStones";
+    	
+    }
 
 
 }

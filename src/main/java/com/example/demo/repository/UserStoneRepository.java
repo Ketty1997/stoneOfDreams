@@ -41,5 +41,12 @@ public interface UserStoneRepository extends JpaRepository <UserStone, Integer> 
     @Query(value = "DELETE FROM user_stone WHERE user_stone.id_stone = :id", nativeQuery = true)
     void deleteByStoneId(@Param("id")int id);
 
-
+    boolean existsByUserIdAndStoneId(int userId, int stoneId);
+    
+    //query che mi restiruisce una lista di id di pietre associate ad un utente
+    //stiamo filtrando tutte le righe in cui l'ID dell'utente è uguale al userId che passi come parametro. Questo ti permette di ottenere solo le pietre associate a un determinato utente.
+    @Query("SELECT us.stone.id FROM UserStone us WHERE us.user.id = :userId")
+    List<Integer> findStoneIdsByUserId(@Param("userId") int userId);
+    
+    //in pratica la query cerca tutte le righe delle colonne in userStone dove idUtente corrisponde a quello che passo nel parametro userID e quindi estrae gli id delle pietre stone.id assiociate a quell'utente
 }

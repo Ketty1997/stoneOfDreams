@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.StoneDto;
+import com.example.demo.model.User;
 import com.example.demo.services.StoneService;
+import com.example.demo.services.UserService;
+import com.example.demo.services.UserStonesService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -27,13 +32,25 @@ public class StoneCtr {
 	@Autowired
 	private StoneService stoneService;
 	
+	@Autowired
+	private UserService userService;
 	
+	@Autowired
+	private UserStonesService userStonesService;
 	
 	@GetMapping({"","/"})
-	public String listaPietre(Model model) {
-		
+	public String listaPietre(Model model, HttpSession session) {
+		User utente = userService.getUserFromSession(session);
 		List<StoneDto> listaPietre = stoneService.getListaPietre();
+		
+		//Creo una lista di pietre utente contenente gli id delle pietre che ha l'utente
+		//la metto qui perche io voglio sapere se una pietra e' gia stata aggiunta alla collezione MENTRE VISUALIZZIAMO TUTTE LE PIETRE
+		List<Integer> pietreUtente = userStonesService.getUserStoneIds(utente.getId());
+		if (pietreUtente == null) {
+		    pietreUtente = new ArrayList<>();
+		}
 		model.addAttribute("listaPietre", listaPietre);
+		model.addAttribute("pietreUtente",pietreUtente);
 		return "stones";
 
 	}
@@ -68,6 +85,10 @@ public class StoneCtr {
 
         //se non abbiamo errori salviamo il file immagine nella cartella tramite il metodo creato nel service
         try {
+        	if(stoneService.isStoneDuplicate(sDto.getNome())) {
+        		result.addError(new FieldError("stoneFrom","nome","La pietra con questo nome esiste"));
+        		return "insertStone";
+        	};
 			//creo una variabile che contiene il file del nome dell'immagine e lo uso anche per salvarla nella cartella con il metodo nel service 
             String storageFileName = stoneService.saveImage(sDto.getImmagineFile());
 

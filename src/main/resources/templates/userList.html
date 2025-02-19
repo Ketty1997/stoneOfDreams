@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head th:insert="~{head :: headContent}" th:with="pageTitle='Lista Utenti'"></head>
+<body>
+
+<nav th:insert="~{header :: navbar}"></nav>
+	<div class="container mt-4">
+		<h2 class="mb-3">Lista Utenti</h2>
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+	                <th>Nome</th>
+	                <th>Email</th>
+	                <th>Ruolo</th>
+	                <th>Azioni</th>
+	            </tr>
+			</thead>
+		
+			 <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.nome}">Nome Utente</td>
+                <td th:text="${user.email}">email@example.com</td>
+                <td th:text="${user.ruolo}">USER</td>
+                <td>
+                    <a th:if="${session.ruolo == 'ADMIN'}" 
+                       th:href="@{/admin/changeRole/{userId}(userId=${user.id})}" 
+                       class="btn btn-success btn-sm">
+                        Cambia Ruolo
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+		
+		</table>
+	
+	</div>
+	<!-- Esempio di lista utenti, visibile solo per gli admin 
+	<div th:each="user : ${userList}">
+	    <p th:text="${user.nome}">Nome Utente</p>
+	    
+	    <!-- Mostra il link per cambiare il ruolo solo se l'utente è un amministratore 
+	    <a th:if="${session.ruolo == 'ADMIN'}" th:href="@{/admin/changeRole/{userId}(userId=${user.id})}" class="btn btn-warning">Cambia Ruolo</a>
+	</div>
+	-->
+	<footer th:insert="~{footer :: footer-el}">
+</body>
+</html>

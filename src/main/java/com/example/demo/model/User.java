@@ -22,7 +22,15 @@ public class User implements Serializable {
 	private String segnoZodiacale;
 
     private String img;
-	
+	private String ruolo;
+	public String getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+
 	public User() {}
 	
 	public User(int id) {

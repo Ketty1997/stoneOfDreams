@@ -53,6 +53,9 @@ public class UserService {
         -StandardCopyOption.REPLACE_EXISTING: Questa opzione specifica che, se un file esiste già nella destinazione con lo stesso nome, esso verrà sovrascritto.*/
         
         String userImageName = image.getOriginalFilename();
+        
+        // Normalizza il nome del file per evitare caratteri speciali
+        String normalizedFileName = userImageName.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
 
         try {
             String uploadDir = "src/main/resources/static/images/";
@@ -74,7 +77,7 @@ public class UserService {
             System.out.println("errore-> " + e.getMessage());
         }
 
-        return userImageName;
+        return normalizedFileName;
     }
 
 
@@ -83,7 +86,11 @@ public class UserService {
         System.out.println(userDto.getPassword());
         /* In una classe Builder (UserDtoBuilder.java in questo caso), i metodi statici trasformano direttamente il dto in utente*/
         User insertUser = UserDtoBuilder.UserFromDtoToEntity(userDto, imageFileName, passwordEncoder.encode(userDto.getPassword()));
-
+        //assegno un ruolo di default all'user
+        insertUser.setRuolo("USER");
+        if(userDto.getRuolo() != null && userDto.getRuolo().equalsIgnoreCase("ADMIN")) {
+        	insertUser.setRuolo("ADMIN");
+        }
         userRepository.save(insertUser);
     }
 
@@ -129,5 +136,7 @@ public class UserService {
 	    // Usa matches() per confrontare la password inserita con quella criptata nel database
 	    return passwordEncoder.pwMaches(oldPassword, encryptedPassword);  // Corretto, confronta direttamente
 	}
+	
+	
 
 }

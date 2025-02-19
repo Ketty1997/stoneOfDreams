@@ -29,7 +29,12 @@
                 </div>
                 <a class="dropdown-item" href="/user">My Account</a>
                 <a class="dropdown-item" href="/userStones">Le mie pietre</a>
+                
               </li>
+              <li th:if="${session.ruolo == 'ADMIN'}">
+    			<a class="dropdown-item" href="/admin/users">Gestione Utenti</a>
+			</li>
+              
               <li><a class="dropdown-item text-danger" href="/logout">Log out</a></li>
             </ul>
           </li>

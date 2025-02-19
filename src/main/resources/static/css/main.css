@@ -45,6 +45,7 @@
 }
 
 /* user account */
+#boxUserCont {width: fit-content !important;}
 .userBox.card {
    border-radius: 15px !important;
 }
@@ -57,7 +58,11 @@
 }
 .accountButtons a {margin-right: 5px;}
 .cardButCont {    height: 40px; align-items: center;}
-.addCollectionBut {font-size: 30px;}
+.addCollectionBut {font-size: 30px; transition: all 0.1s ease-out;}
+.addCollectionBut:hover {
+    font-size: 33px;
+    cursor: pointer;
+}
 .custom-textarea {
     width: 100%;
     min-height: 100px; /* Altezza minima */

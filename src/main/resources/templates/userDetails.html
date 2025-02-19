@@ -11,7 +11,7 @@
  	<div class="container mt-5">
 
  		<div class="row">
- 			<div class="col-md-6 offset-md-3">
+ 			<div id="boxUserCont" class="col-md-6 offset-md-3">
  				<div class="userBox card shadow-lg p-4">
  					<h2 class="mb-4"> 
                         Ehi <b th:text="${user.nome} + ','"></b>
@@ -70,8 +70,9 @@
                     <div class="d-flex mt-3 accountButtons">
 
                         <a th:href="@{/user/preUpdateUser/{id}(id=${user.id})}" class="btn btn-primary">Aggiorna Profilo</a>
-                        <a th:href="@{/user/delete/{id}(id=${user.id})}" type="submit" class="btn personal-red">Elimina Profilo</a>
                         <a th:href="@{/userStones}" class="btn btn-primary">Le mie Pietre</a>
+                        <a th:href="@{/admin/users}" class="btn btn-primary">Gest.Utenti</a>
+                        <a th:href="@{/user/delete/{id}(id=${user.id})}" type="submit" class="btn personal-red">Elimina Profilo</a>
 						<a href="/logout" class="btn btn-secondary">Logout</a>
 						
                     </div>

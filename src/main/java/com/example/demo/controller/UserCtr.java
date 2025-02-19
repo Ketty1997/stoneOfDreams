@@ -40,8 +40,6 @@ public class UserCtr {
 		//recupero l'utente dalla sessione
 		User user = userService.getUserFromSession(session);
 
-		System.out.println("Ultima lettera nome utente: " + user.getNome().charAt(user.getNome().length() -1));
-		System.out.println("immagine utente: " + user.getImg());
 		String gender="";
 		switch (user.getNome().charAt(user.getNome().length() -1)) {
 			case 'a':
