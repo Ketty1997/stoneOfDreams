@@ -42,8 +42,8 @@
                                         th:src="@{/images/{img}(img=${user.img})}">
                                     
                                 </a>
-                                 <a th:href="@{/user/deleteImg(id=${user.id})}" title="Elimina immagine" class="delete-icon position-absolute">
-    								<i class="uil uil-trash-alt"></i>
+                                 <a th:href="@{/user/deleteImg(id=${user.id})}" title="Elimina immagine" class="delete-icon position-absolute" onclick="return confirm('Sei sicuro di voler eliminare?')">
+    								<i class="uil uil-trash-alt delete-confirm"></i>
 								</a>
 								
                             </div>
@@ -72,7 +72,7 @@
                         <a th:href="@{/user/preUpdateUser/{id}(id=${user.id})}" class="btn btn-primary">Aggiorna Profilo</a>
                         <a th:href="@{/userStones}" class="btn btn-primary">Le mie Pietre</a>
                         <a th:href="@{/admin/users}" class="btn btn-primary">Gest.Utenti</a>
-                        <a th:href="@{/user/delete/{id}(id=${user.id})}" type="submit" class="btn personal-red">Elimina Profilo</a>
+                        <a th:href="@{/user/delete/{id}(id=${user.id})}" type="submit" class="btn personal-red delete-confirm" onclick="return confirm('Sei sicuro di voler eliminare il tuo profilo?')">Elimina Profilo</a>
 						<a href="/logout" class="btn btn-secondary">Logout</a>
 						
                     </div>

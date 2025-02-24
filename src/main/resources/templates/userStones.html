@@ -39,7 +39,11 @@
 			<div class="card d-flex flex-column" style="width: 18rem;" th:each="pietra : ${listaPietreUtente}">
 				
 				<img th:src="@{/images/} + ${pietra.key.immagine}" class="card-img-top img-fixed" alt="Immagine della pietra">
-
+				<!-- Mostra l'immagine personale se presente -->
+			    <div th:if="${pietra.value.imagePath != null}">
+			        <h6>La tua immagine:</h6>
+			        <img th:src="@{${pietra.value.imagePath}}" class="card-img-top img-fixed" alt="Immagine personale della pietra">
+			    </div>
 
 				<div class="card-body d-flex flex-column">
 					<h5 class="card-title" th:text="${pietra.key.nome}"></h5>

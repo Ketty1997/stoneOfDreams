@@ -2,6 +2,8 @@ package com.example.demo.dto;
 
 import java.time.LocalDate;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 
 public class UserStoneDto {
@@ -11,7 +13,24 @@ public class UserStoneDto {
 	private int stoneId;
 	private LocalDate data;
 	private String note;
-	
+	private MultipartFile img;
+	private String imagePath;
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public MultipartFile getImg() {
+		return img;
+	}
+
+	public void setImg(MultipartFile img) {
+		this.img = img;
+	}
+
 	public UserStoneDto () {}
 	
 	public UserStoneDto(int id) {
