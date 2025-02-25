@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,13 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.example.demo.model.Stone;
+import org.springframework.web.multipart.MultipartFile;
+import com.example.demo.dto.UserStoneDto;
 import com.example.demo.model.User;
 import com.example.demo.model.UserStone;
 import com.example.demo.services.UserService;
 import com.example.demo.services.UserStonesService;
-
 import jakarta.servlet.http.HttpSession;
 
 
@@ -53,30 +51,23 @@ public class UserStonesCtr {
 
         return "redirect:/userStones";
     }
+
     
-
-    @GetMapping("/addToColl")
-    public String addToCollection(@RequestParam int stoneid,@RequestParam String nota, HttpSession session) {
-
+    @PostMapping("/addToColl") 
+    public String handlePostAddToCollection(@RequestParam int stoneid, @RequestParam String nota,@RequestParam("image")MultipartFile image, UserStoneDto uDto, HttpSession session) throws IOException {
+        // Simile alla logica di GET, ma ora gestito per la richiesta POST
         User utente = userService.getUserFromSession(session);
-
-        //per l'id utente da mettere nella colonna
         int idUtente = utente.getId();
-
-        //per data attuale
-        LocalDate data =LocalDate.now();
-        // DateTimeFormatter formattazione = DateTimeFormatter.ofPattern("yyyy.MM-dd");
-        // String dataFormattata = data.format(formattazione);
+        LocalDate data = LocalDate.now();
     
-        //controllo se la pietra e' gia presente nella collezione dell'utente
-        if(userStonesService.existingInCollection(idUtente, stoneid)) {
-        	session.setAttribute("errorMessage", "pietra presente nella tua collezione");
-        	return "redirect:/userStones";
-        }
-        userStonesService.addStoneToCollection(idUtente, stoneid, nota, data);
+        String storageFileName = userStonesService.saveImage(image);
+        // Aggiungi pietra alla collezione
+        userStonesService.addStoneToCollection(idUtente, stoneid, nota, data,storageFileName);
 
         return "redirect:/userStones";
     }
+    
+   
     
     @GetMapping("/editNote")
     public String editNote(@RequestParam int id, Model model) {
@@ -86,6 +77,8 @@ public class UserStonesCtr {
     	model.addAttribute("pietra", userStone);
     	return "userStonesEditNote";
     }
+
+
     @PostMapping("/updateNote")
     public String updateNote(@RequestParam("id") int id, @RequestParam("nota") String nota){
     	 System.out.println("Nota ricevuta per l'ID " + id + ": " + nota);
@@ -99,6 +92,5 @@ public class UserStonesCtr {
     	return "redirect:/userStones";
     	
     }
-
 
 }

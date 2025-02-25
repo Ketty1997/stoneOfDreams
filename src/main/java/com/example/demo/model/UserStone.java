@@ -26,7 +26,15 @@ public class UserStone implements Serializable {
 	
 	private LocalDate data;
 	private String note;
-	
+	private String imagePath;
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
 	public UserStone () {}
 	
 	public UserStone(int id) {
@@ -72,6 +80,12 @@ public class UserStone implements Serializable {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "UserStone [id=" + id + ", user=" + user + ", stone=" + stone + ", data=" + data + ", note=" + note
+				+ ", imagePath=" + imagePath + "]";
+	}
+	
+	
 }

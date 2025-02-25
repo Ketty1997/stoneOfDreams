@@ -17,6 +17,7 @@ public class UserStoneDtoBuilder {
 		u.setStone(new Stone(uDto.getStoneId()));
 		u.setData(uDto.getData());
 		u.setNote(uDto.getNote());
+		u.setImagePath(uDto.getImagePath());
 		return u;
 	}
 
@@ -35,6 +36,7 @@ public class UserStoneDtoBuilder {
 		uDto.setStoneId(u.getStone().getId());
 		uDto.setData(u.getData());
 		uDto.setNote(u.getNote());
+		uDto.setImagePath(u.getImagePath());
 		return uDto;
 	}
 

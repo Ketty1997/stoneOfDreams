@@ -69,11 +69,15 @@
 									</div>
 
 									<div class="modal-body">
-										<form action="/userStones/addToColl" method="get">
+										<form action="/userStones/addToColl" method="post" enctype="multipart/form-data">
 
 											<input type="hidden" name="stoneid" th:value="${p.id}" >
 											<textarea class="custom-textarea" name="nota" placeholder="Aggiungi una nota"></textarea>
-
+											
+											
+											<label for="image">Carica un'immagine:</label>
+    										<input type="file" name="image" accept="image/*" id="imageUpload" required>
+											
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
 												<button type="submit" class="btn btn-success">Aggiungi alla collezione</button>
@@ -92,7 +96,12 @@
 	 		</div>
 	 	</div>
 	 </div>
-	 
+	 <script>
+	 document.getElementById("imageUpload").addEventListener("change", function() {
+		    console.log("File selezionato:", this.files[0]);
+		});
+
+	 </script>
 	
 
 	<footer th:insert="~{footer :: footer-el}">
