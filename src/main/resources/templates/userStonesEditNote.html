@@ -1,18 +1,35 @@
 <!doctype html>
 <html lang="en">
-<head th:insert="~{head :: headContent}" th:with="pageTitle='Modifica Nota Pietra'">
+<head th:insert="~{head :: headContent}" th:with="pageTitle='Modifica Nota e immagine Pietra'">
 </head>
 <body>
     <nav th:insert="~{header :: navbar}"></nav>
-    <div class="container">
-        <h2>Modifica Nota per <span th:text="${pietra.note}"></span></h2>
-        <form th:action="@{/userStones/updateNote(id=${pietra.id})}" method="post">
+    <div class="container d-flex flex-column align-items-center mt-5">
+    
+        <form th:action="@{/userStones/updateNote(id=${pietra.id})}" method="post"  class="w-50 p-3 border rounded shadow mb-3">
         
-        	<div class="form-group">
-                <label for="nota">Nota Personale</label>
+        	<div class="form-group mb-3">
+                <label for="nota" class="fw-bold mb-2">Nota Personale</label>
                 <textarea id="nota" name="nota" class="form-control" rows="3" th:text="${pietra.note}"></textarea>
             </div>
-            <button type="submit" class="btn btn-success mt-2">Salva Modifica</button>
+            <div class="text-end">
+            	<button type="submit" class="btn btn-success mt-2">Aggiorna nota</button>
+            </div>
+        </form>
+        
+        <form th:action="@{/userStones/updateImage}" method="post" enctype="multipart/form-data"  class="w-50 p-3 border rounded shadow mb-3">
+        	<input type="hidden" name="id" th:value="${pietra.id}">
+        	<div class="form-group mb-3">
+        		<label for="image" class="fw-bold mb-2">Cambia immagine</label>
+        		<input type="file" id="image" name="image" class="form-control">
+        	</div>
+        	<div th:if="${pietra.imagePath != null}" class="text-center mb-4">
+        		<h6>Immagine attuale</h6>
+        		<img th:src="@{/images/} + ${pietra.imagePath}" class="img-thumbnail" style="max-width: 200px; height: auto;" alt="Immagine della pietra">
+        	</div>
+        	<div class="text-end">
+        		<button type="submit" class="btn btn-success mt-2">Aggiorna Immagine</button>
+        	</div>
         </form>
     </div>
     <footer th:insert="~{footer :: footer-el}"></footer>

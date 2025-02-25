@@ -54,13 +54,16 @@ public class UserStonesCtr {
 
     
     @PostMapping("/addToColl") 
-    public String handlePostAddToCollection(@RequestParam int stoneid, @RequestParam String nota,@RequestParam("image")MultipartFile image, UserStoneDto uDto, HttpSession session) throws IOException {
+    public String handlePostAddToCollection(@RequestParam int stoneid, @RequestParam String nota,@RequestParam(value="image",required=false)MultipartFile image, UserStoneDto uDto, HttpSession session) throws IOException {
         // Simile alla logica di GET, ma ora gestito per la richiesta POST
         User utente = userService.getUserFromSession(session);
         int idUtente = utente.getId();
         LocalDate data = LocalDate.now();
-    
-        String storageFileName = userStonesService.saveImage(image);
+        
+        String storageFileName = null;
+        if(image != null && !image.isEmpty()) {
+        	storageFileName = userStonesService.saveImage(image);
+        }
         // Aggiungi pietra alla collezione
         userStonesService.addStoneToCollection(idUtente, stoneid, nota, data,storageFileName);
 
@@ -81,7 +84,6 @@ public class UserStonesCtr {
 
     @PostMapping("/updateNote")
     public String updateNote(@RequestParam("id") int id, @RequestParam("nota") String nota){
-    	 System.out.println("Nota ricevuta per l'ID " + id + ": " + nota);
     	//recupero pietra
     	UserStone userStone = userStonesService.getUserStoneById(id);
     	//aggiorno nota
@@ -91,6 +93,15 @@ public class UserStonesCtr {
     	
     	return "redirect:/userStones";
     	
+    }
+    
+    @PostMapping("/updateImage")
+    public String updateImg(@RequestParam("id") int id, @RequestParam("image") MultipartFile img) throws IOException {
+    	UserStone userStone = userStonesService.getUserStoneById(id);
+    	String storageFileName = userStonesService.saveImage(img);
+    	userStone.setImagePath(storageFileName);
+    	userStonesService.updateUserStone(userStone);
+    	return "redirect:/userStones";
     }
 
 }

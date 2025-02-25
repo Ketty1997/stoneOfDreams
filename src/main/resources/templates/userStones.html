@@ -44,6 +44,10 @@
 			        <h6>La tua immagine:</h6>
 			        <img th:src="@{/images/} +${pietra.value.imagePath}" class="card-img-top img-fixed" alt="Immagine personale della pietra">
 			    </div>
+			    <div th:if="${pietra.value.imagePath == null}">
+			    	<p class="text-muted">Nessuna immagine caricata</p>
+			    
+			    </div>
 
 				<div class="card-body d-flex flex-column">
 					<h5 class="card-title" th:text="${pietra.key.nome}"></h5>
