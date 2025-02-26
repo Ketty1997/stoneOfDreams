@@ -21,6 +21,8 @@ public class StoneDtoBuilder {
 		s.setEmozione(sDto.getEmozione());
 		s.setDescrizione(sDto.getDescrizione());
 		s.setImmagine(imageFilename);
+		s.setBenefici(sDto.getBenefici());
+		s.setStoriaPietra(sDto.getStoriaPietra());
 		return s;
 	}
 	
@@ -41,6 +43,8 @@ public class StoneDtoBuilder {
 		sDto.setEmozione(s.getEmozione());
 		sDto.setDescrizione(s.getDescrizione());
 		sDto.setImgName(s.getImmagine());
+		sDto.setBenefici(s.getBenefici());
+		sDto.setStoriaPietra(s.getStoriaPietra());
 		return sDto;
 	}
 }
