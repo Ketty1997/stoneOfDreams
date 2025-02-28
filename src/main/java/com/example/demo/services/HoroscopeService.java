@@ -1,43 +1,41 @@
 package com.example.demo.services;
 
-import java.util.Map;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class HoroscopeService {
 	public String getHoroscope(String sign) {
-		// URL dell'API per ottenere l'oroscopo giornaliero
-        String url = "https://zodiacal.herokuapp.com/api/horoscope/" + sign;
+		// // URL dell'API per ottenere l'oroscopo giornaliero
+        String url = "https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=" + sign + "&day=TODAY";
 
-        // Creo un oggetto RestTemplate per effettuare la chiamata HTTP
-        RestTemplate restTemplate = new RestTemplate();
-
-        // Impostiamo l'header per accettare la risposta come JSON
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // Creo la richiesta HTTP
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
+        
         try {
-            // Effettuo la richiesta HTTP GET e ottengo la risposta come stringa
-            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
+            // Creazione dell'HttpClient
+            HttpClient client = HttpClient.newHttpClient();
+            
+            // Creazione della richiesta GET
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+            
+            // Invio della richiesta e ricezione della risposta
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Controllo se la risposta è valida e restituisco il messaggio dell'oroscopo
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                return (String) response.getBody().get("horoscope");
-            } else {
-                return "Impossibile ottenere l'oroscopo al momento.";
-            }
+            // Parsing della risposta JSON
+            JSONObject jsonResponse = new JSONObject(response.body());
+            
+            // Estrazione del campo "horoscope_data" da "data"
+            return jsonResponse.getJSONObject("data").getString("horoscope_data");
+            
         } catch (Exception e) {
-            return "Errore nel recupero dell'oroscopo: " + e.getMessage();
+            e.printStackTrace();
+            return "Errore nel recupero dell'oroscopo";
         }
     }
 }
