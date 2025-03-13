@@ -101,5 +101,9 @@ public class StoneService {
   	public boolean isStoneDuplicate(String nome) {
   		return stoneRepo.findByNome(nome) != null;
   	}
+  	
+  	public StoneDto getStoneById(int id) {
+  		return StoneDtoBuilder.StoneFromEntityToDto(stoneRepo.findById(id).orElse(null));
+  	}
 
 }

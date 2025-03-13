@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.services.HoroscopeService;
 import com.example.demo.util.PasswordEncoder;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +25,9 @@ public class HomeController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+    @Autowired
+    private HoroscopeService horoscopeService;
+    
 
     @GetMapping("/")
     public String home(HttpSession session, Model model) {
@@ -39,6 +43,13 @@ public class HomeController {
             session.setAttribute("imgUser", user.getImg());
             session.setAttribute("userName", user.getNome());
             // System.out.println("utentePhoto ---- " + user.getImg());
+            //Se l'utente ha un segno zodiacale registrato, chiamo l'api per ottenere l'oroscopo
+            if(user.getSegnoZodiacale() != null && !user.getSegnoZodiacale().isEmpty()) {
+            	//converto il segno zodiacale in minuscolo per essere compatibile con API
+            	String messaggioOroscopo = horoscopeService.getHoroscope(user.getSegnoZodiacale().toLowerCase());
+            	//aggiungo il messaggio al model
+            	model.addAttribute("messaggioOroscopo",messaggioOroscopo);
+            }
 
             return "/index";
         }

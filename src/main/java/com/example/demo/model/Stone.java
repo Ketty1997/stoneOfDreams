@@ -20,6 +20,9 @@ public class Stone implements Serializable {
 	private String emozione;
 	private String descrizione;
 	private String immagine;
+	private String storiaPietra;
+	private String benefici;
+	
 	
 	public Stone() {}
 	
@@ -89,6 +92,24 @@ public class Stone implements Serializable {
 
 	public void setImmagine(String immagine) {
 		this.immagine = immagine;
+	}
+
+	public String getStoriaPietra() {
+		return storiaPietra;
+	}
+
+	public void setStoriaPietra(String storiaPietra) {
+		this.storiaPietra = storiaPietra;
+	}
+
+	
+
+	public String getBenefici() {
+		return benefici;
+	}
+
+	public void setBenefici(String benefici) {
+		this.benefici = benefici;
 	}
 	
 	

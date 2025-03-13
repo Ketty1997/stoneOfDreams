@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head th:insert="~{head :: headContent}" th:with="pageTitle='Dettagli pietra'"></head>
+<body>
+	
+	<nav th:insert="~{header :: navbar}"></nav>
+	<div class="container my-5">
+		<h2 th:text="${pietra.nome}" class="text-center mb-4"></h2>
+		<div class="d-flex justify-content-center mb-4">
+			<img th:src="@{/images/}+ ${pietra.imgName}" class="img-fluid" style="max-width: 30%;"alt="immagine della pietra">
+		</div>
+		<div class="row justify-content-center">
+		
+			<div  class="col-12 col-md-8">
+				<p><strong>Storia pietra:</strong> <span th:text="${pietra.storiaPietra}"></span></p>
+				<p><strong>Benefici:</strong> <span th:text="${pietra.benefici}"></span></p>
+				<p><strong>Messaggio astrologico:</strong> <span>Chiama api</span></p>
+				<p><strong>Colore:</strong> <span th:text="${pietra.colore}"></span></p>
+			    <p><strong>Descrizione:</strong> <span th:text="${pietra.descrizione}"></span></p>
+			    <p><strong>Elemento:</strong> <span th:text="${pietra.elemento}"></span></p>
+			    <p><strong>Emozione:</strong> <span th:text="${pietra.emozione}"></span></p>
+			    <p><strong>Tipo:</strong> <span th:text="${pietra.tipo}"></span></p>
+			</div>
+		</div>
+    	 <!-- Pulsante di condivisione -->
+        <div class="text-center mt-4">
+            <button class="btn btn-info" onclick="condividi()">Condividi</button>
+        </div>
+   </div>
+    	
+    	<footer th:insert="~{footer :: footer-el}"></footer>
+  <script>
+        function condividi() {
+            navigator.share({
+                title: document.title,
+                url: window.location.href
+            }).catch(err => console.log("Condivisione non supportata", err));
+        }
+    </script>
+
+    
+</body>
+
+</html>

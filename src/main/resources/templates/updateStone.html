@@ -49,6 +49,14 @@
 					<label for="floatingInput">Emotion</label>
 				</div>
 				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{benefici}" class="form-control" id="floatingInput" placeholder="Benefit">
+					<label for="floatingInput">Benefit</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
+					<input type="text" th:field="*{storiaPietra}" class="form-control" id="floatingInput" placeholder="Stone's story">
+					<label for="floatingInput">Stone's story</label>
+				</div>
+				<div class="form-floating mb-3 mx-2">
 					<input type="file" th:field="*{immagineFile}" class="form-control" id="floatingInput" placeholder="Image">
 					<label for="floatingInput">Image</label>
 					<p th:if="${#fields.hasErrors('immagineFile')}" th:errors="*{immagineFile}" style="color: red;"></p>
