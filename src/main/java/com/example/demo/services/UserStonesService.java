@@ -62,11 +62,9 @@ public class UserStonesService {
         stone.setStoneId(stoneId);
         stone.setUserId(userId);
         stone.setData(data);
-        System.out.println("Storage file name: " + storageFileName);
         stone.setImagePath(storageFileName);
         UserStone userStone = UserStoneDtoBuilder.userStoneFromDtoToEntity(stone);
-        // Stampa i dettagli della pietra salvata
-        System.out.println("Pietra salvata: " + userStone.toString());
+       
         userStoneRepository.save(userStone);
 
     }
