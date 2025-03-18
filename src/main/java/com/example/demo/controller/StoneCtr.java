@@ -170,5 +170,15 @@ public class StoneCtr {
 		stoneService.eliminaPietra(id);
 		return "redirect:/stone";
 	}
+	
+	@GetMapping("/detail/{id}")
+	public String stoneDetail(@PathVariable int id, Model model) {
+		StoneDto pietra = stoneService.getStoneById(id);
+		if(pietra == null) {
+			return "redirect:/stone";
+		}
+		model.addAttribute("pietra", pietra);
+		return "stoneDetail";
+	}
 
 }

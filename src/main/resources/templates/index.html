@@ -26,7 +26,11 @@
           <button type="button" onclick="window.location.href='/stone'" class="btn text-white btn-lg px-4 me-sm-3 bg-amethyst">Pietre</button>
           <button type="button" onclick="window.location.href='/user/'" class="btn btn-outline-secondary btn-lg px-4">Account</button>
         </div>
-      </div>
+       </div>
+       <div th:if="${messaggioOroscopo}" class="alert alert-info text-center my-4">
+       	<h5>🌟 Il tuo messaggio astrologico di oggi 🌟</h5>
+    	<p th:text="${messaggioOroscopo}"></p>
+       </div>
       <div class="overflow-hidden">
         <div class="container px-5">
             <!-- le immagini si trovano nella cartella "public/images" del progetto -->

@@ -22,7 +22,8 @@ public class StoneDto {
 
 	private String imgName;
 	private MultipartFile immagineFile; 
-
+	private String storiaPietra;
+	private String benefici;
 
 
 
@@ -105,6 +106,24 @@ public class StoneDto {
 
 	public void setImgName(String imgName) {
 		this.imgName = imgName;
+	}
+
+	public String getStoriaPietra() {
+		return storiaPietra;
+	}
+
+	public void setStoriaPietra(String storiaPietra) {
+		this.storiaPietra = storiaPietra;
+	}
+
+	
+
+	public String getBenefici() {
+		return benefici;
+	}
+
+	public void setBenefici(String benefici) {
+		this.benefici = benefici;
 	}
 	
 
