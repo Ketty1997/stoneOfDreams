@@ -35,7 +35,7 @@ public class HoroscopeService {
             
         } catch (Exception e) {
             e.printStackTrace();
-            return "Errore nel recupero dell'oroscopo";
+            return "Errore nel recupero dell'oroscopo -> propabilmente non hai impostato il segnozodiacale in INGLESE sul db";
         }
     }
 }
