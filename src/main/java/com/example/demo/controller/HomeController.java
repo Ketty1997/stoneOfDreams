@@ -47,8 +47,16 @@ public class HomeController {
             if(user.getSegnoZodiacale() != null && !user.getSegnoZodiacale().isEmpty()) {
             	//converto il segno zodiacale in minuscolo per essere compatibile con API
             	String messaggioOroscopo = horoscopeService.getHoroscope(user.getSegnoZodiacale().toLowerCase());
+
+                // facciamo due richieste perché l'API che abbiamo consente una lungezza massima di 500 caratteri
+                String primaParteTradotta = messaggioOroscopo.substring(0, 500);
+                String secondaParteTradotta = messaggioOroscopo.substring(500, messaggioOroscopo.length());
+
+                String messTradotto = horoscopeService.traduciFrase(primaParteTradotta) + horoscopeService.traduciFrase(secondaParteTradotta);
+
             	//aggiungo il messaggio al model
             	model.addAttribute("messaggioOroscopo",messaggioOroscopo);
+            	model.addAttribute("messaggioOroscopoTradotto",messTradotto);
             }
 
             return "/index";
