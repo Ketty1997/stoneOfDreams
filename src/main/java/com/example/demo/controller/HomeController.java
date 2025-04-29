@@ -45,18 +45,34 @@ public class HomeController {
             // System.out.println("utentePhoto ---- " + user.getImg());
             //Se l'utente ha un segno zodiacale registrato, chiamo l'api per ottenere l'oroscopo
             if(user.getSegnoZodiacale() != null && !user.getSegnoZodiacale().isEmpty()) {
-            	//converto il segno zodiacale in minuscolo per essere compatibile con API
-            	String messaggioOroscopo = horoscopeService.getHoroscope(user.getSegnoZodiacale().toLowerCase());
 
-                // facciamo due richieste perché l'API che abbiamo consente una lungezza massima di 500 caratteri
-                String primaParteTradotta = messaggioOroscopo.substring(0, 500);
-                String secondaParteTradotta = messaggioOroscopo.substring(500, messaggioOroscopo.length());
-
-                String messTradotto = horoscopeService.traduciFrase(primaParteTradotta) + horoscopeService.traduciFrase(secondaParteTradotta);
-
-            	//aggiungo il messaggio al model
-            	model.addAttribute("messaggioOroscopo",messaggioOroscopo);
-            	model.addAttribute("messaggioOroscopoTradotto",messTradotto);
+                try {
+                   
+                    String messaggioOroscopo = horoscopeService.getHoroscope(user.getSegnoZodiacale().toLowerCase());
+                
+                    String primaParteTradotta = "";
+                    String secondaParteTradotta = "";
+                
+                    //substring(0, 500) lancia StringIndexOutOfBoundsException se la stringa è più corta di 500 caratteri.
+                    // Per evitare l'eccezione, dobbiamo usare if (messaggioOroscopo.length() > 500)
+                    if (messaggioOroscopo.length() > 500) {
+                        primaParteTradotta = messaggioOroscopo.substring(0, 500);
+                        secondaParteTradotta = messaggioOroscopo.substring(500);
+                    } else {
+                        primaParteTradotta = messaggioOroscopo;
+                    }
+                
+                    String messTradotto = horoscopeService.traduciFrase(primaParteTradotta);
+                    if (!secondaParteTradotta.isEmpty()) {
+                        messTradotto += horoscopeService.traduciFrase(secondaParteTradotta);
+                    }
+                
+                    model.addAttribute("messaggioOroscopo", messaggioOroscopo);
+                    model.addAttribute("messaggioOroscopoTradotto", messTradotto);
+                } catch (Exception e) {
+                    System.out.println("errore: -> " + e.getMessage());
+                }
+                    
             }
 
             return "/index";
